@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function(){
+    try {
+      var saved = localStorage.getItem('chystodim_theme');
+      var theme = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<title>ЧистоДім — Інтернет-магазин побутової хімії</title>
+<meta name="description" content="ЧистоДім — засоби для прання, миття посуду, прибирання та освіжувачі повітря з доставкою по Україні.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== TOP UTILITY BAR ===== -->
+<div class="topbar">
+  <div class="container topbar__inner">
+    <div class="topbar__info">
+      <span>📍 м. Львів, вул. Городоцька, 80</span>
+      <span>🕒 Пн–Нд: 10:00–21:00</span>
+    </div>
+    <div class="topbar__info">
+      <a href="tel:+380986099805">📞 +380 986-099-805</a>
+      <a href="mailto:hello@chystodim.ua">✉️ peretyatko2128@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN NAVIGATION ===== -->
+<header class="navbar">
+  <div class="container navbar__inner">
+    <button class="burger" id="burgerBtn" aria-label="Відкрити меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="#hero" class="logo">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="34" height="34">
+          <path d="M24 4c6 8 14 16 14 25a14 14 0 1 1-28 0c0-9 8-17 14-25z" fill="var(--accent)"/>
+          <path d="M24 14c3 5 7 9 7 14a7 7 0 1 1-14 0c0-5 4-9 7-14z" fill="var(--surface)" opacity="0.9"/>
+        </svg>
+      </span>
+      <span class="logo__text">Чисто<b>Дім</b></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#catalog" data-filter="all">Каталог</a>
+      <a href="#catalog" data-filter="laundry">Прання</a>
+      <a href="#catalog" data-filter="dishwashing">Посуд</a>
+      <a href="#catalog" data-filter="cleaning">Прибирання</a>
+      <a href="#catalog" data-filter="air">Освіжувачі</a>
+      <a href="#about">Про нас</a>
+      <a href="#contact">Контакти</a>
+      <a href="javascript:void(0)" id="navFavLink">Обране</a>
+    </nav>
+
+    <div class="navbar__search">
+      <input type="text" id="searchInput" placeholder="Пошук засобів, бренду, аромату…" aria-label="Пошук товарів">
+      <button id="searchBtn" aria-label="Пошук">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M21 21l-4.35-4.35M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Перемкнути тему">
+      <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+
+    <button class="fav-toggle" id="favToggle" aria-label="Відкрити обране">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span class="fav-toggle__badge" id="favBadge">0</span>
+    </button>
+
+    <button class="cart-toggle" id="cartToggle" aria-label="Відкрити кошик">
+      <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L20 8H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+      <span class="cart-toggle__badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow">Чистота починається тут</span>
+      <h1>Свіжість у&nbsp;кожен дім, <span>результат — з першого разу</span></h1>
+      <p>Перевірені засоби для прання, посуду та прибирання — від щоденних базових до концентрованих формул. Доставка по Львову за 2 години, по Україні — 1–2 дні.</p>
+      <div class="hero__actions">
+        <a href="#catalog" class="btn btn--accent">Перейти до каталогу</a>
+        <a href="#about" class="btn btn--ghost">Чому ми</a>
+      </div>
+      <div class="hero__stats">
+        <div><strong>1200+</strong><span>товарів у каталозі</span></div>
+        <div><strong>15 000+</strong><span>задоволених клієнтів</span></div>
+        <div><strong>4.9★</strong><span>середня оцінка</span></div>
+      </div>
+    </div>
+    <div class="hero__visual" aria-hidden="true">
+      <div class="wipe-card">
+        <div class="wipe-card__shine"></div>
+        <svg viewBox="0 0 200 240" width="100%">
+          <rect x="10" y="10" width="180" height="220" rx="24" fill="var(--surface)"/>
+          <rect x="40" y="40" width="120" height="150" rx="14" fill="var(--primary-100)"/>
+          <path d="M70 95c10-18 25-30 30-30s20 12 30 30-5 45-30 45-40-27-30-45z" fill="var(--primary)"/>
+          <circle cx="100" cy="105" r="9" fill="var(--surface)" opacity=".85"/>
+          <rect x="55" y="200" width="90" height="10" rx="5" fill="var(--accent)"/>
+        </svg>
+      </div>
+      <div class="bubble bubble--1"></div>
+      <div class="bubble bubble--2"></div>
+      <div class="bubble bubble--3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORY CHIPS ===== -->
+<section class="chips-section">
+  <div class="container chips" id="chips">
+    <button class="chip is-active" data-filter="all">Усі товари</button>
+    <button class="chip" data-filter="laundry">🧺 Прання</button>
+    <button class="chip" data-filter="dishwashing">🍽️ Посуд</button>
+    <button class="chip" data-filter="cleaning">🧽 Прибирання</button>
+    <button class="chip" data-filter="air">🌿 Освіжувачі</button>
+    <button class="chip" data-filter="shampoo">🧴 Шампуні</button>
+    <button class="chip" data-filter="toothpaste">🦷 Зубні пасти</button>
+  </div>
+</section>
+
+<!-- ===== CATALOG ===== -->
+<section class="catalog" id="catalog">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Каталог</span>
+      <h2></h2>
+    </div>
+    <div class="product-grid" id="productGrid"><!-- generated by script.js --></div>
+    <p class="empty-state" id="emptyState" hidden>Нічого не знайдено. Спробуйте інший запит або категорію.</p>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container about__inner">
+    <div class="about__media" aria-hidden="true">
+      <svg viewBox="0 0 220 220" width="100%">
+        <circle cx="110" cy="110" r="100" fill="var(--primary-100)"/>
+        <path d="M60 130c0-40 22-70 50-70s50 30 50 70-25 55-50 55-50-15-50-55z" fill="var(--primary)"/>
+        <rect x="85" y="60" width="50" height="18" rx="9" fill="var(--surface)"/>
+        <circle cx="110" cy="150" r="14" fill="var(--accent)"/>
+      </svg>
+    </div>
+    <div class="about__content">
+      <span class="eyebrow">Про нас</span>
+      <h2>Родинний бізнес, який знає, що таке справжня чистота</h2>
+      <p>ЧистоДім працює з 2016 року. Ми відбираємо засоби, які реально працюють: тестуємо кожен бренд, перевіряємо склад і відмовляємось від того, що не відповідає нашим стандартам якості та безпеки для родини.</p>
+      <ul class="about__list">
+        <li><strong>Тільки перевірені бренди</strong> — без підробок і сумнівних аналогів</li>
+        <li><strong>Швидка доставка</strong> — Львів за 2 години, Україна за 1–2 дні</li>
+        <li><strong>Гнучка оплата</strong> — карткою, при отриманні чи на розрахунковий рахунок</li>
+        <li><strong>Підтримка 7 днів на тиждень</strong> — завжди підкажемо, що обрати</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-head section-head--light">
+      <span class="eyebrow">Контакти</span>
+      <h2>Завжди на зв'язку</h2>
+    </div>
+    <div class="contact__grid">
+      <div class="contact__card">
+        <span class="contact__icon">📍</span>
+        <h3>Адреса</h3>
+        <p>м. Львів, вул. Городоцька, 80<br></p>
+      </div>
+      <div class="contact__card">
+        <span class="contact__icon">📞</span>
+        <h3>Телефон</h3>
+        <p><a href="tel:+380501234567">+38 (098) 609-98-05</a><br><a href="tel:+380671234567"></a></p>
+      </div>
+      <div class="contact__card">
+        <span class="contact__icon">✉️</span>
+        <h3>Email</h3>
+        <p><a href="mailto:hello@chystodim.ua">peretyatko2128@gmail.com</a></p>
+      </div>
+      <div class="contact__card">
+        <span class="contact__icon">🕒</span>
+        <h3>Графік роботи</h3>
+        <p>Пн–Сб: 10:00–21:00<br>Нд: 11:00–19:00</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__col">
+      <a href="#hero" class="logo logo--footer">Чисто<b>Дім</b></a>
+      <p>Інтернет-магазин побутової хімії та засобів для дому. Чистота, якій можна довіряти.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Категорії</h4>
+      <a href="#catalog" data-filter="laundry">Засоби для прання</a>
+      <a href="#catalog" data-filter="dishwashing">Засоби для посуду</a>
+      <a href="#catalog" data-filter="cleaning">Побутова хімія</a>
+      <a href="#catalog" data-filter="air">Освіжувачі повітря</a>
+    </div>
+    <div class="footer__col">
+      <h4>Інформація</h4>
+      <a href="#about">Про нас</a>
+      <a href="#contact">Контакти</a>
+      <a href="#catalog">Доставка та оплата</a>
+    </div>
+    <div class="footer__col">
+      <h4>Зв'яжіться з нами</h4>
+      <a href="tel:+380501234567">+38 (098) 609-98-05</a>
+      <a href="mailto:hello@chystodim.ua">peretyatko2128@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer__bottom container">
+    <span>© 2026 ЧистоДім. Усі права захищено.</span>
+  </div>
+</footer>
+
+<!-- ===== CART DRAWER ===== -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Кошик">
+  <div class="cart-drawer__head">
+    <h3>Ваш кошик</h3>
+    <button class="cart-close" id="cartClose" aria-label="Закрити кошик">✕</button>
+  </div>
+  <div class="cart-drawer__body" id="cartBody">
+    <!-- generated by script.js -->
+  </div>
+  <div class="cart-drawer__footer">
+    <div class="cart-total">
+      <span>Разом:</span>
+      <strong id="cartTotal">0 ₴</strong>
+    </div>
+    <button class="btn btn--accent btn--full" id="checkoutBtn">Оформити замовлення</button>
+    <button class="btn btn--ghost btn--full" id="clearCartBtn">Очистити кошик</button>
+  </div>
+</aside>
+
+<aside class="cart-drawer fav-drawer" id="favDrawer" aria-label="Обране">
+  <div class="cart-drawer__head">
+    <h3>Обране</h3>
+    <button class="cart-close" id="favClose" aria-label="Закрити обране">✕</button>
+  </div>
+  <div class="cart-drawer__body" id="favBody">
+    <!-- generated by script.js -->
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<div class="checkout-modal" id="checkoutModal">
+  <div class="checkout-content">
+<button id="closeCheckoutBtn">✕</button>
+    <h2>Оформлення замовлення</h2>
+
+    <input type="text" id="customerName" placeholder="Ваше ім'я">
+
+    <input type="tel" id="customerPhone" placeholder="Номер телефону">
+
+    <input type="email" id="customerEmail" placeholder="Email">
+
+    <input type="text" id="customerAddress" placeholder="Адреса доставки">
+
+    <input type="text" id="customerCity" placeholder="Місто">
+
+    <select id="paymentMethod">
+      <option>Оплата при отриманні</option>
+      <option>Банківська карта</option>
+    </select>
+
+    <button id="confirmOrderBtn">
+      Підтвердити замовлення
+    </button>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
