@@ -510,7 +510,8 @@ const branch = document.getElementById('customerBranch').value;
             order += `• ${p.name} × ${qty} = ${p.price * qty} ₴\n`;
         }
     });
-const deliveryNames = {
+
+   const deliveryNames = {
     nova: "🚚 Нова пошта",
     ukr: "📮 Укрпошта"
 };
