@@ -487,7 +487,7 @@ checkoutBtn.addEventListener('click', () => {
 
 });
 
-confirmOrderBtn.addEventListener('click', () => {
+confirmOrderBtn.addEventListener('click', async () => {
 
     const name = document.getElementById('customerName').value;
     const phone = document.getElementById('customerPhone').value;
@@ -500,12 +500,56 @@ confirmOrderBtn.addEventListener('click', () => {
         return;
     }
 
-    showToast("Замовлення оформлено 🎉");
+    let order = "";
 
-    clearCart();
-    closeCart();
+    Object.entries(cart).forEach(([id, qty]) => {
+        const p = PRODUCTS.find(prod => prod.id === id);
+        if (p) {
+            order += `• ${p.name} × ${qty} = ${p.price * qty} ₴\n`;
+        }
+    });
 
-    checkoutModal.style.display = "none";
+    const text =
+`🛒 НОВЕ ЗАМОВЛЕННЯ
+
+👤 Ім'я: ${name}
+📞 Телефон: ${phone}
+📧 Email: ${email}
+
+🏠 Адреса: ${address}
+🏙️ Місто: ${city}
+
+------------------------
+
+${order}`;
+
+    try {
+
+        const response = await fetch("https://chystodim-server.onrender.com/order", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                text: text
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast("Замовлення оформлено 🎉");
+            clearCart();
+            closeCart();
+            checkoutModal.style.display = "none";
+        } else {
+            showToast("Помилка відправки");
+        }
+
+    } catch (err) {
+        console.error(err);
+        showToast("Помилка з'єднання");
+    }
 
 });
 
