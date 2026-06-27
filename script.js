@@ -492,10 +492,12 @@ confirmOrderBtn.addEventListener('click', async () => {
     const name = document.getElementById('customerName').value;
     const phone = document.getElementById('customerPhone').value;
     const email = document.getElementById('customerEmail').value;
-    const address = document.getElementById('customerAddress').value;
+    const delivery = document.getElementById('deliveryMethod').value;
+const city = document.getElementById('customerCity').value;
+const branch = document.getElementById('customerBranch').value;
     const city = document.getElementById('customerCity').value;
 
-    if (!name || !phone || !email || !address || !city) {
+    if (!name || !phone || !email || !delivery || !city || !branch) {
         showToast("Заповніть усі поля");
         return;
     }
@@ -508,16 +510,23 @@ confirmOrderBtn.addEventListener('click', async () => {
             order += `• ${p.name} × ${qty} = ${p.price * qty} ₴\n`;
         }
     });
+const deliveryNames = {
+    nova: "🚚 Нова пошта",
+    ukr: "📮 Укрпошта"
+};
 
-    const text =
+const deliveryText = deliveryNames[delivery];
+
+const text =
 `🛒 НОВЕ ЗАМОВЛЕННЯ
 
 👤 Ім'я: ${name}
 📞 Телефон: ${phone}
 📧 Email: ${email}
 
-🏠 Адреса: ${address}
+🚚 Доставка: ${deliveryText}
 🏙️ Місто: ${city}
+📦 Відділення: ${branch}
 
 ------------------------
 
