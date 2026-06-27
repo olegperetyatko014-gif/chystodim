@@ -268,11 +268,8 @@
 <div class="toast" id="toast"></div>
 
 <div class="checkout-modal" id="checkoutModal">
-  <div class="checkout-modal" id="checkoutModal">
   <div class="checkout-content">
-
-    <button id="closeCheckoutBtn">✕</button>
-
+<button id="closeCheckoutBtn">✕</button>
     <h2>Оформлення замовлення</h2>
 
     <input type="text" id="customerName" placeholder="Ваше ім'я">
@@ -281,20 +278,18 @@
 
     <input type="email" id="customerEmail" placeholder="Email">
 
-    <select id="deliveryMethod">
-      <option value="">Оберіть спосіб доставки</option>
-      <option value="nova">🚚 Нова пошта</option>
-      <option value="ukr">📮 Укрпошта</option>
-    </select>
+    <input type="text" id="customerAddress" placeholder="Адреса доставки">
 
     <input type="text" id="customerCity" placeholder="Місто">
 
-    <input type="text" id="customerBranch" placeholder="№ відділення">
+    <select id="paymentMethod">
+      <option>Оплата при отриманні</option>
+      <option>Банківська карта</option>
+    </select>
 
     <button id="confirmOrderBtn">
       Підтвердити замовлення
     </button>
-
   </div>
 </div>
 <script src="script.js"></script>
