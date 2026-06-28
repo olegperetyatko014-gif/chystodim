@@ -147,7 +147,7 @@
           <span class="product-card__cat">${CATEGORY_LABELS[p.category]}</span>
           <h3 class="product-card__title">${p.name}</h3>
           <span class="product-card__vol">Об'єм/вага: ${p.vol}</span>
-          <span class="product-card__stock">В наявності: ${p.stock} шт.</span>А
+          <span class="product-card__stock">В наявності: ${p.stock} шт.</span>
           <div class="product-card__footer">
             <span class="product-card__price">${p.oldPrice ? `<small>${p.oldPrice} ₴</small>` : ''}${p.price} ₴</span>
             <button class="add-btn" data-id="${p.id}">+ У кошик</button>
