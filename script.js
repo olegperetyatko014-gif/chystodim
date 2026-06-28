@@ -12,26 +12,26 @@
   --------------------------------------------------------- */
   const PRODUCTS = [
     // Laundry detergents
-    { id: 'l1', category: 'shampoo', name: 'Balea Kids 2in1 Surfosaurus', vol: '300ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (1).png' },
-    { id: 'l2', category: 'shampoo', name: 'Balea Kids 2in1 Fairy Garden', vol: '300ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (2).png' },
-    { id: 'l3', category: 'shampoo', name: 'Balea Family', vol: '500ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (3).png' },
-    { id: 'l4', category: 'shampoo', name: 'Balea Intensiv', vol: '300ml', price: 47, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (4).png' },
-    { id: 'l5', category: 'shampoo', name: 'Balea Shampoo Pure Fresh', vol: '300ml', price: 47, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (5).png' },
-    { id: 'l6', category: 'toothpaste', name: 'TheraMed  Origina', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (6).png' },
-    { id: 'l7', category: 'toothpaste', name: 'TheraMed Atem-Frish', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (7).png' },
-    { id: 'l8', category: 'toothpaste', name: 'Theramed Complete Plus', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (8).png' },
-    { id: 'l9', category: 'toothpaste', name: 'TheraMed  Natur-WeiB', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (9).png' },
-    { id: 'l10', category: 'toothpaste', name: 'Dontodent Brillant Weiss', vol: '125ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (10).png' },
-    { id: 'l11', category: 'toothpaste', name: 'Dontodent Sensetive', vol: '125ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (11).png' },
-    { id: 'l12', category: 'toothpaste', name: 'Dontodent Sensetive', vol: '500ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (12).png' },
-    { id: 'l13', category: 'dishwashing', name: 'Arancio CHANTECLAIR', vol: '500ml', price: 58, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (13).png' },
-    { id: 'l14', category: 'dishwashing', name: 'Melograno CHANTECLAIR', vol: '500ml', price: 58, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (14).png' },
-    { id: 'l15', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (15).png' },
-    { id: 'l16', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (16).png' },
-    { id: 'l17', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (17).png' },
-    { id: 'l18', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (18).png' },
-    { id: 'l19', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (19).png' },
-    { id: 'l20', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (20).png' },
+    { id: 'l1', category: 'shampoo', name: 'Balea Kids 2in1 Surfosaurus', vol: '300ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (1).png', stock: 10 },
+    { id: 'l2', category: 'shampoo', name: 'Balea Kids 2in1 Fairy Garden', vol: '300ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (2).png', stock: 10 },
+    { id: 'l3', category: 'shampoo', name: 'Balea Family', vol: '500ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (3).png', stock: 10 },
+    { id: 'l4', category: 'shampoo', name: 'Balea Intensiv', vol: '300ml', price: 47, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (4).png', stock: 10 },
+    { id: 'l5', category: 'shampoo', name: 'Balea Shampoo Pure Fresh', vol: '300ml', price: 47, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (5).png', stock: 10 },
+    { id: 'l6', category: 'toothpaste', name: 'TheraMed  Origina', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (6).png', stock: 10 },
+    { id: 'l7', category: 'toothpaste', name: 'TheraMed Atem-Frish', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (7).png', stock: 10 },
+    { id: 'l8', category: 'toothpaste', name: 'Theramed Complete Plus', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (8).png', stock: 10 },
+    { id: 'l9', category: 'toothpaste', name: 'TheraMed  Natur-WeiB', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (9).png', stock: 10 },
+    { id: 'l10', category: 'toothpaste', name: 'Dontodent Brillant Weiss', vol: '125ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (10).png', stock: 10 },
+    { id: 'l11', category: 'toothpaste', name: 'Dontodent Sensetive', vol: '125ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (11).png', stock: 10 },
+    { id: 'l12', category: 'toothpaste', name: 'Dontodent Sensetive', vol: '500ml', price： 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (12).png', stock: 10 },
+    { id：'l13', category：'dishwashing', name：'Arancio CHANTECLAIR', vol：'500ml', price：58, oldPrice：100, badge：'Хіт', tint：0, image：'images/images-Photoroom (13).png', stock：10 },
+    { id：'l14', category：'dishwashing', name：'Melograno CHANTECLAIR', vol：'500ml', price：58, oldPrice：100, badge：'Хіт', tint：0, image：'images/images-Photoroom (14).png', stock：10 },
+    { id：'l15', category：'dishwashing', name：'DUAL POWER', vol：'1l', price：96, oldPrice：100, badge：'Хіт', tint：0, image：'images/images-Photoroom (15).png', stock：10 },
+    { id：'l16', category：'dishwashing', name：'DUAL POWER', vol：'1l', price：96, oldPrice：10０, badge：'Хіт', tint：０, image：'images/images-Photoroom (１６).png',
+    { id: 'l17', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (17).png', stock: 10 },
+    { id: 'l18', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (18).png', stock: 10 },
+    { id: 'l19', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (19).png', stock: 10 },
+    { id: 'l20', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (20).png', stock: 10 },
   ];
 
   const CATEGORY_LABELS = {
@@ -238,13 +238,25 @@ window.scrollTo({
     catch (err) { /* storage unavailable — cart stays in-memory only */ }
   }
 
-  function addToCart(id) {
-    cart[id] = (cart[id] || 0) + 1;
-    saveCart();
-    renderCart();
-    flashAddButton(id);
-    showToast('Товар додано до кошика');
+function addToCart(id) {
+  const product = PRODUCTS.find(p => p.id === id);
+
+  if (!product) return;
+
+  const currentQty = cart[id] || 0;
+
+  if (currentQty >= product.stock) {
+    showToast(`На складі лише ${product.stock} шт.`);
+    return;
   }
+
+  cart[id] = currentQty + 1;
+
+  saveCart();
+  renderCart();
+  flashAddButton(id);
+  showToast('Товар додано до кошика');
+}
   function changeQty(id, delta) {
     if (!cart[id]) return;
     cart[id] += delta;
