@@ -249,7 +249,7 @@ console.log(cart[id]);
   const currentQty = cart[id] || 0;
 
   if (currentQty >= product.stock) {
-    showToast(`На складі лише ${product.stock} шт.`);
+    showToast(`В наявності лише ${product.stock} шт.`);
     return;
   }
 
@@ -268,7 +268,7 @@ function changeQty(id, delta) {
 
   // Перевірка максимальної кількості
   if (delta > 0 && cart[id] >= product.stock) {
-    showToast(`На складі лише ${product.stock} шт.`);
+    showToast(`В наявності лише ${product.stock} шт.`);
     return;
   }
 
