@@ -27,7 +27,7 @@
     { id：'l13', category：'dishwashing', name：'Arancio CHANTECLAIR', vol：'500ml', price：58, oldPrice：100, badge：'Хіт', tint：0, image：'images/images-Photoroom (13).png', stock：10 },
     { id：'l14', category：'dishwashing', name：'Melograno CHANTECLAIR', vol：'500ml', price：58, oldPrice：100, badge：'Хіт', tint：0, image：'images/images-Photoroom (14).png', stock：10 },
     { id：'l15', category：'dishwashing', name：'DUAL POWER', vol：'1l', price：96, oldPrice：100, badge：'Хіт', tint：0, image：'images/images-Photoroom (15).png', stock：10 },
-    { id：'l16', category：'dishwashing', name：'DUAL POWER', vol：'1l', price：96, oldPrice：10０, badge：'Хіт', tint：０, image：'images/images-Photoroom (１６).png',
+    { id：'l16', category：'dishwashing', name：'DUAL POWER', vol：'1l', price：96, oldPrice：10０, badge：'Хіт', tint：０, image：'images/images-Photoroom (１６).png', stock：10 },
     { id: 'l17', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (17).png', stock: 10 },
     { id: 'l18', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (18).png', stock: 10 },
     { id: 'l19', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (19).png', stock: 10 },
