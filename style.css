@@ -344,9 +344,23 @@ html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
    ========================================================= */
 .contact{ padding: 80px 0; background: var(--primary-dark); color:#fff; }
 .contact__grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 22px; }
+.contact__grid{
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
 .contact__card{
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius-md); padding: 26px 22px; transition: transform .25s ease, background .25s ease;
+  flex: 0 1 320px;
+  max-width: 320px;
+  width: 100%;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  padding: 26px 22px;
+  transition: transform .25s ease, background .25s ease;
 }
 .contact__card:hover{ transform: translateY(-4px); background: rgba(255,255,255,0.1); }
 .contact__icon{ font-size: 26px; display:block; margin-bottom:10px; }
