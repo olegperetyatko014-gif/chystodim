@@ -516,17 +516,26 @@ checkoutBtn.addEventListener('click', () => {
 });
 
 confirmOrderBtn.addEventListener('click', async () => {
+  if (confirmOrderBtn.disabled) return;
+
+confirmOrderBtn.disabled = true;
+confirmOrderBtn.textContent = "Відправляємо...";
 
     const name = document.getElementById('customerName').value;
     const phone = document.getElementById('customerPhone').value;
     const email = document.getElementById('customerEmail').value;
-    const address = document.getElementById('customerAddress').value;
+    const delivery = document.getElementById("deliveryMethod").value;
+const branch = document.getElementById("customerBranch").value;
     const city = document.getElementById('customerCity').value;
 
-    if (!name || !phone || !email || !address || !city) {
-        showToast("Заповніть усі поля");
-        return;
-    }
+    if (!name || !phone || !email || !city || !delivery || !branch) {
+    showToast("Заповніть усі поля");
+
+    confirmOrderBtn.disabled = false;
+    confirmOrderBtn.textContent = "Підтвердити замовлення";
+
+    return;
+}
 
     let order = "";
 
@@ -544,8 +553,9 @@ confirmOrderBtn.addEventListener('click', async () => {
 📞 Телефон: ${phone}
 📧 Email: ${email}
 
-🏠 Адреса: ${address}
 🏙️ Місто: ${city}
+🚚 Доставка: ${delivery}
+🏢 Відділення: ${branch}
 
 ------------------------
 
@@ -570,15 +580,21 @@ ${order}`;
             clearCart();
             closeCart();
             checkoutModal.style.display = "none";
-        } else {
-            showToast("Помилка відправки");
-        }
+            confirmOrderBtn.disabled = false;
+confirmOrderBtn.textContent = "Підтвердити замовлення";
+  } else {
+    showToast("Помилка відправки");
 
-    } catch (err) {
-        console.error(err);
-        showToast("Помилка з'єднання");
-    }
+    confirmOrderBtn.disabled = false;
+    confirmOrderBtn.textContent = "Підтвердити замовлення";
+}
+} catch (err) {
+    console.error(err);
+    showToast("Помилка з'єднання");
 
+    confirmOrderBtn.disabled = false;
+    confirmOrderBtn.textContent = "Підтвердити замовлення";
+}
 });
 
   /* ---------------------------------------------------------
