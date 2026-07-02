@@ -442,8 +442,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
 }
 
 @media (max-width: 900px){
-  .nav-links{
-    display:flex;
+.nav-links{
+    display:none;
 }
   .navbar__search{ display:none; }
   .navbar__inner{ justify-content: space-between; }
