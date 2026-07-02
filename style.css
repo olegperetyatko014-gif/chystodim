@@ -452,6 +452,9 @@ html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
   .navbar__search{ display:none; }
   .burger{ display:flex; }
   .navbar__inner{ justify-content: space-between; }
+  .nav-actions{
+    margin-left: auto;
+}
   .header{
     overflow-x: hidden;
 }
@@ -606,4 +609,9 @@ html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
 html,
 body{
     overflow-x: hidden;
+}
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
