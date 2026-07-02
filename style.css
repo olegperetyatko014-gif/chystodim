@@ -206,12 +206,6 @@ button{ font-family: inherit; cursor: pointer; border:none; background:none; col
 html[data-theme="dark"] .theme-toggle .icon-sun{ display:block; }
 html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
 
-.burger{ display:none; flex-direction:column; gap:5px; padding: 6px; }
-.burger span{ width:24px; height:2px; background: var(--text); border-radius:2px; transition: transform .25s, opacity .25s; }
-.burger.is-active span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
-.burger.is-active span:nth-child(2){ opacity:0; }
-.burger.is-active span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
-
 /* =========================================================
    HERO
    ========================================================= */
@@ -448,9 +442,10 @@ html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
 }
 
 @media (max-width: 900px){
-  .nav-links{ display:none; }
+  .nav-links{
+    display:flex;
+}
   .navbar__search{ display:none; }
-  .burger{ display:flex; }
   .navbar__inner{ justify-content: space-between; }
   .nav-actions{
     margin-left: auto;
