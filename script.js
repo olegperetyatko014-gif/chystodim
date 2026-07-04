@@ -215,12 +215,14 @@ window.scrollTo({
   /* ---------------------------------------------------------
      8. MOBILE MENU
   --------------------------------------------------------- */
-  burgerBtn.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('is-open');
-    navbarSearch.classList.toggle('is-open', open);
-    burgerBtn.classList.toggle('is-active', open);
-    burgerBtn.setAttribute('aria-expanded', String(open));
-  });
+if (burgerBtn && navLinks && navbarSearch) {
+    burgerBtn.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('is-open');
+        navbarSearch.classList.toggle('is-open', open);
+        burgerBtn.classList.toggle('is-active', open);
+        burgerBtn.setAttribute('aria-expanded', String(open));
+    });
+}
 
   /* ---------------------------------------------------------
      9. CART — persistence helpers
