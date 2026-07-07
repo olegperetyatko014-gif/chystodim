@@ -5,34 +5,34 @@
 
 (() => {
   'use strict';
+  const SUPABASE_URL = "https://misjubvcloitgtyyximr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_tjERGfE2aVnK-LWT_GxbWQ_qUgXq9-o";
+
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
   /* ---------------------------------------------------------
      1. PRODUCT DATA
      categories: laundry | dishwashing | cleaning | air
   --------------------------------------------------------- */
-  const PRODUCTS = [
-    // Laundry detergents
-    { id: 'l1', category: 'shampoo', name: 'Balea Kids 2in1 Surfosaurus', vol: '300ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (1).png',stock: 10 },
-    { id: 'l2', category: 'shampoo', name: 'Balea Kids 2in1 Fairy Garden', vol: '300ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (2).png',stock: 10 },
-    { id: 'l3', category: 'shampoo', name: 'Balea Family', vol: '500ml', price: 69, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (3).png',stock: 10 },
-    { id: 'l4', category: 'shampoo', name: 'Balea Intensiv', vol: '300ml', price: 47, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (4).png',stock: 10 },
-    { id: 'l5', category: 'shampoo', name: 'Balea Shampoo Pure Fresh', vol: '300ml', price: 47, oldPrice: 90, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (5).png',stock: 10 },
-    { id: 'l6', category: 'toothpaste', name: 'TheraMed  Origina', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (6).png',stock: 10 },
-    { id: 'l7', category: 'toothpaste', name: 'TheraMed Atem-Frish', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (7).png',stock: 10 },
-    { id: 'l8', category: 'toothpaste', name: 'Theramed Complete Plus', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (8).png',stock: 10 },
-    { id: 'l9', category: 'toothpaste', name: 'TheraMed  Natur-WeiB', vol: '100ml', price: 99, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (9).png',stock: 10 },
-    { id: 'l10', category: 'toothpaste', name: 'Dontodent Brillant Weiss', vol: '125ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (10).png',stock: 10 },
-    { id: 'l11', category: 'toothpaste', name: 'Dontodent Sensetive', vol: '125ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (11).png',stock: 10 },
-    { id: 'l12', category: 'toothpaste', name: 'Dontodent Sensetive', vol: '500ml', price: 62, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (12).png',stock: 10 },
-    { id: 'l13', category: 'dishwashing', name: 'Arancio CHANTECLAIR', vol: '500ml', price: 58, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (13).png',stock: 10 },
-    { id: 'l14', category: 'dishwashing', name: 'Melograno CHANTECLAIR', vol: '500ml', price: 58, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (14).png',stock: 10 },
-    { id: 'l15', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (15).png',stock: 10 },
-    { id: 'l16', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (16).png',stock: 10 },
-    { id: 'l17', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (17).png',stock: 10 },
-    { id: 'l18', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (18).png',stock: 10 },
-    { id: 'l19', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (19).png',stock: 10 },
-    { id: 'l20', category: 'dishwashing', name: 'DUAL POWER', vol: '1l', price: 96, oldPrice: 100, badge: 'Хіт', tint: 0, image: 'images/images-Photoroom (20).png',stock: 10 },
-  ];
+  async function loadProducts() {
+    const { data, error } = await supabase
+        .from("products")
+        .select("*");
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    PRODUCTS.length = 0;
+    PRODUCTS.push(...data);
+
+    renderCatalog();
+}
+const PRODUCTS = [];
 
   const CATEGORY_LABELS = {
     laundry: 'Засоби для прання',
@@ -93,7 +93,7 @@
      4. ICON GENERATOR (inline SVG — no external images)
   --------------------------------------------------------- */
   function productIcon(category, tintIndex) {
-    const t = TINTS[tintIndex % TINTS.length];
+    const t = TINTS[tintIndex || 0];
     const shapes = {
       laundry: `
         <circle cx="50" cy="50" r="42" fill="${t.light}"/>
@@ -148,8 +148,17 @@
           <h3 class="product-card__title">${p.name}</h3>
           <span class="product-card__vol">Об'єм/вага: ${p.vol}</span>
           <div class="product-card__footer">
-            <span class="product-card__price">${p.oldPrice ? `<small>${p.oldPrice} ₴</small>` : ''}${p.price} ₴</span>
-            <button class="add-btn" data-id="${p.id}">+ У кошик</button>
+  <span class="product-card__price">
+    ${p.oldPrice ? `<small>${p.oldPrice} ₴</small>` : ''}
+    ${p.price} ₴
+  </span>
+
+  ${
+    p.stock > 0
+      ? `<button class="add-btn" data-id="${p.id}">В кошик</button>`
+      : `<button class="add-btn" disabled>Немає в наявності</button>`
+  }
+</div>
           </div>
         </div>
       </article>
@@ -180,6 +189,20 @@ window.scrollTo({
 });
 
   document.querySelectorAll('[data-filter]').forEach(link => {
+    const catalogLink = document.getElementById("catalogLink");
+
+if (catalogLink) {
+    catalogLink.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        document.getElementById("catalog").scrollIntoView({
+            behavior: "smooth"
+        });
+
+        navLinks.classList.remove("is-open");
+        burgerBtn.classList.remove("is-active");
+    });
+}
     if (link.classList.contains('chip')) return;
     link.addEventListener('click', e => {
       e.preventDefault();
@@ -253,8 +276,8 @@ console.log(cart[id]);
     showToast(`В наявності лише ${product.stock} шт.`);
     return;
   }
-
-  cart[id] = currentQty + 1;
+  
+cart[id] = currentQty + 1;
 
   saveCart();
   renderCart();
@@ -483,11 +506,12 @@ function changeQty(id, delta) {
     else if (e.target.classList.contains('remove-btn')) removeFromCart(id);
   });
 
-  productGrid.addEventListener('click', e => {
+productGrid.addEventListener('click', e => {
     const btn = e.target.closest('.add-btn');
     if (!btn) return;
+
     addToCart(btn.dataset.id);
-  });
+});
 
   clearCartBtn.addEventListener('click', () => {
     if (Object.keys(cart).length === 0) return;
@@ -509,11 +533,27 @@ checkoutModal.addEventListener('click', (e) => {
 checkoutBtn.addEventListener('click', () => {
 
     if (Object.keys(cart).length === 0) {
-        showToast('Кошик порожній');
+        showToast("Кошик порожній");
         return;
     }
 
-    checkoutModal.style.display = 'flex';
+    // Обчислюємо загальну суму
+    let total = 0;
+
+    Object.entries(cart).forEach(([id, qty]) => {
+        const product = PRODUCTS.find(p => p.id == id);
+
+        if (product) {
+            total += product.price * qty;
+        }
+    });
+
+    if (total < 2000) {
+        showToast(`Мінімальна сума замовлення — 2000 ₴.`);
+        return;
+    }
+
+    checkoutModal.style.display = "flex";
 
 });
 
@@ -537,6 +577,44 @@ const branch = document.getElementById("customerBranch").value;
     confirmOrderBtn.textContent = "Підтвердити замовлення";
 
     return;
+}
+
+const { data: orderData, error: orderError } = await supabase
+.from("orders")
+.insert({
+    customer_name: name,
+    customer_phone: phone,
+    customer_email: email,
+    customer_city: city,
+    delivery: delivery,
+    branch: branch
+})
+.select()
+.single();
+
+if (orderError) {
+    console.error("ORDER ERROR:", orderError);
+} else {
+    console.log("ORDER CREATED:", orderData);
+}
+for (const [id, qty] of Object.entries(cart)) {
+
+const product = PRODUCTS.find(p => p.id == id);
+    
+await supabase.from("order_items").insert({
+        order_id: orderData.id,
+        product_id: id,
+        quantity: qty,
+        price: product.price
+    });
+
+const { data, error } = await supabase.rpc("decrease_stock", {
+    product_id: id,
+    qty: qty
+});
+
+console.log(data);
+console.log(error);
 }
 
     let order = "";
@@ -574,8 +652,10 @@ ${order}`;
                 text: text
             })
         });
+        console.log(response.status);
 
         const data = await response.json();
+        console.log(data);
 
         if (data.success) {
             showToast("Замовлення оформлено 🎉");
@@ -648,7 +728,104 @@ confirmOrderBtn.textContent = "Підтвердити замовлення";
   /* ---------------------------------------------------------
      13. INIT
   --------------------------------------------------------- */
-  renderCatalog();
-  renderCart();
-  renderFavorites();
+/* =========================================================
+   DELIVERY MODAL
+========================================================= */
+
+const deliveryBtn = document.getElementById("deliveryBtn");
+const deliveryBtnNav = document.getElementById("deliveryBtnNav");
+const deliveryLink = document.getElementById("deliveryLink");
+const deliveryModal = document.getElementById("deliveryModal");
+const closeDeliveryBtn = document.getElementById("closeDeliveryBtn");
+
+deliveryBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    deliveryModal.style.display = "flex";
+});
+
+deliveryBtnNav.addEventListener("click", (e) => {
+    e.preventDefault();
+    deliveryModal.style.display = "flex";
+});
+
+deliveryLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    deliveryModal.style.display = "flex";
+});
+closeDeliveryBtn.addEventListener("click", () => {
+    deliveryModal.style.display = "none";
+});
+
+deliveryModal.addEventListener("click", (e) => {
+    if (e.target === deliveryModal) {
+        deliveryModal.style.display = "none";
+    }
+});
+loadProducts();
+renderCart();
+renderFavorites();
+
+/* ===========================
+   Hide Topbar on Scroll
+=========================== */
+
+const topbar = document.querySelector(".topbar");
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 50) {
+        topbar.classList.add("hide");
+        navbar.classList.add("move-up");
+    } else {
+        topbar.classList.remove("hide");
+        navbar.classList.remove("move-up");
+    }
+
+});
+/* =========================================================
+   Slow Smooth Scroll
+========================================================= */
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener("click", function(e){
+
+        const target = document.querySelector(this.getAttribute("href"));
+
+        if(!target) return;
+
+        e.preventDefault();
+
+        const start = window.pageYOffset;
+        const end = target.getBoundingClientRect().top + start - 80;
+
+        const duration = 1200; // 1.2 секунди
+        let startTime = null;
+
+        function animation(currentTime){
+
+            if(!startTime) startTime = currentTime;
+
+            const timeElapsed = currentTime - startTime;
+
+            const progress = Math.min(timeElapsed / duration, 1);
+
+            const ease =
+                progress < 0.5
+                ? 4 * progress * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+            window.scrollTo(0, start + (end - start) * ease);
+
+            if(progress < 1){
+                requestAnimationFrame(animation);
+            }
+        }
+
+        requestAnimationFrame(animation);
+
+    });
+
+});
 })();
