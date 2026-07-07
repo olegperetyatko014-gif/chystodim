@@ -60,7 +60,9 @@ html[data-theme="dark"] .fav-btn{ background: rgba(23,34,30,.85); }
 }
 
 *{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+html{
+    scroll-padding-top: 90px;
+}
 body{
   margin:0;
   font-family: var(--font-body);
@@ -128,7 +130,23 @@ button{ font-family: inherit; cursor: pointer; border:none; background:none; col
 /* =========================================================
    TOP BAR
    ========================================================= */
-.topbar{ background: var(--primary-dark); color: #DFF5EC; font-size: 13px; }
+.topbar{
+    background: var(--primary-dark);
+    color: #DFF5EC;
+    font-size: 13px;
+
+    transition: all .35s ease;
+
+    overflow: hidden;
+
+    max-height: 60px;
+}
+.topbar.hide{
+    max-height:0;
+    padding-top:0;
+    padding-bottom:0;
+    opacity:0;
+}
 .topbar__inner{ display:flex; justify-content: space-between; align-items:center; padding: 9px 24px; gap: 16px; flex-wrap: wrap; }
 .topbar__info{ display:flex; gap: 18px; flex-wrap: wrap; }
 .topbar__info a{ opacity: .9; transition: opacity .2s; }
@@ -138,9 +156,16 @@ button{ font-family: inherit; cursor: pointer; border:none; background:none; col
    NAVBAR
    ========================================================= */
 .navbar{
-  position: sticky; top:0; z-index: 50;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 60px;
+    z-index: 50;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    transition: top .35s ease;
+}
+
+.navbar.move-up{
+    top:0;
 }
 .navbar__inner{
   display:flex; align-items:center; gap: 24px;
@@ -446,7 +471,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
     display:none;
 }
   .navbar__search{ display:none; }
-  .navbar__inner{ justify-content: space-between; і}
+  .navbar__inner{ justify-content: space-between; }
   .nav-actions{
     margin-left: auto;
 }
@@ -609,4 +634,42 @@ body{
     display:flex;
     align-items:center;
     gap:10px;
+}
+.footer-policy-btn{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 24px;
+
+    background:var(--primary);
+    color:#fff;
+
+    border-radius:12px;
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.footer-policy-btn:hover{
+    background:var(--primary-dark);
+    transform:translateY(-2px);
+}#closeDeliveryBtn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    font-size:24px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:#888;
+}
+
+#closeDeliveryBtn:hover{
+    color:var(--primary);
+}
+.navbar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
 }
