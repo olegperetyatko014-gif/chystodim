@@ -578,7 +578,6 @@ if (
     !surname ||
     !middleName ||
     !phone ||
-    !email ||
     !city ||
     !delivery ||
     !branch
