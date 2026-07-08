@@ -548,7 +548,7 @@ checkoutBtn.addEventListener('click', () => {
         }
     });
 
-    if (total < 20) {
+    if (total < 2000) {
         showToast(`Мінімальна сума замовлення — 2000 ₴.`);
         return;
     }
