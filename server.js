@@ -4,9 +4,9 @@ app.post("/order", async (req, res) => {
     try {
 
         const chatIds = [
-            process.env.1987865626,
-            process.env.7204226375
-        ];
+    "1987865626",
+    "7204226375"
+];
 
         for (const chatId of chatIds) {
             await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
