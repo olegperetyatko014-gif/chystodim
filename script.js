@@ -645,8 +645,8 @@ Object.entries(cart).forEach(([id, qty]) => {
     const text =
 `🛒 НОВЕ ЗАМОВЛЕННЯ
 
-👤 Ім'я: ${name}
-Прізвище: ${surname}
+👤Прізвище: ${surname}
+Ім'я: ${name}
 По-батькові: ${middleName}
 📞 Телефон: ${phone}
 📧 Email: ${email}
