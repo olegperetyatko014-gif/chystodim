@@ -15,7 +15,7 @@ app.post("/order", async (req, res) => {
 
         const chatIds = [
             "1987865626",
-            "7204226375"
+            "5497736440"
         ];
 
         for (const chatId of chatIds) {
