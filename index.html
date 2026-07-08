@@ -266,6 +266,16 @@
     <h2>Оформлення замовлення</h2>
 
     <input type="text" id="customerName" placeholder="Ваше ім'я">
+    
+    <input
+type="text"
+id="customerSurname"
+placeholder="Ваше прізвище">
+
+<input
+type="text"
+id="customerMiddleName"
+placeholder="По батькові">
 
     <input type="tel" id="customerPhone" placeholder="Номер телефону">
 
@@ -275,6 +285,7 @@
   <option value="">Оберіть спосіб доставки</option>
   <option value="Нова пошта">🚚 Нова пошта</option>
   <option value="Укрпошта">📮 Укрпошта</option>
+  <option value="Укрпошта">Самовивіз</option>
 </select>
 
 <input
@@ -283,7 +294,11 @@
   placeholder="Номер відділення"
 />
 
-    <input type="text" id="customerCity" placeholder="Місто">
+    <input type="text" id="customerCity" placeholder="Місто,вулиця,будинок">
+
+    <textarea
+id="customerComment"
+placeholder="Коментар до замовлення (необов'язково)"></textarea>
 
     <button id="confirmOrderBtn">
       Підтвердити замовлення
