@@ -548,7 +548,7 @@ checkoutBtn.addEventListener('click', () => {
         }
     });
 
-    if (total < 2000) {
+    if (total < 20) {
         showToast(`Мінімальна сума замовлення — 2000 ₴.`);
         return;
     }
@@ -564,13 +564,25 @@ confirmOrderBtn.disabled = true;
 confirmOrderBtn.textContent = "Відправляємо...";
 
     const name = document.getElementById('customerName').value;
+    const surname = document.getElementById("customerSurname").value;
+const middleName = document.getElementById("customerMiddleName").value;
     const phone = document.getElementById('customerPhone').value;
     const email = document.getElementById('customerEmail').value;
     const delivery = document.getElementById("deliveryMethod").value;
 const branch = document.getElementById("customerBranch").value;
     const city = document.getElementById('customerCity').value;
+    const comment = document.getElementById("customerComment").value;
 
-    if (!name || !phone || !email || !city || !delivery || !branch) {
+if (
+    !name ||
+    !surname ||
+    !middleName ||
+    !phone ||
+    !email ||
+    !city ||
+    !delivery ||
+    !branch
+) {
     showToast("Заповніть усі поля");
 
     confirmOrderBtn.disabled = false;
@@ -617,19 +629,25 @@ console.log(data);
 console.log(error);
 }
 
-    let order = "";
+let order = "";
+let total = 0;
 
-    Object.entries(cart).forEach(([id, qty]) => {
-        const p = PRODUCTS.find(prod => prod.id === id);
-        if (p) {
-            order += `• ${p.name} × ${qty} = ${p.price * qty} ₴\n`;
-        }
-    });
+Object.entries(cart).forEach(([id, qty]) => {
+    const p = PRODUCTS.find(prod => prod.id == id);
 
+    if (p) {
+        const sum = p.price * qty;
+        total += sum;
+
+        order += `• ${p.name} × ${qty} = ${sum} ₴\n`;
+    }
+});
     const text =
 `🛒 НОВЕ ЗАМОВЛЕННЯ
 
 👤 Ім'я: ${name}
+Прізвище: ${surname}
+По-батькові: ${middleName}
 📞 Телефон: ${phone}
 📧 Email: ${email}
 
@@ -637,6 +655,7 @@ console.log(error);
 🚚 Доставка: ${delivery}
 🏢 Відділення: ${branch}
 
+Коментар: ${comment}
 ------------------------
 
 ${order}`;
