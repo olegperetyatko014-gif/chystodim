@@ -125,23 +125,25 @@ if (!valid) return;
         .single();
 
     if (orderError) {
-        console.error(orderError);
-        alert("Не вдалося створити замовлення");
+console.log(orderError);
+alert(JSON.stringify(orderError));
         confirmOrderBtn.disabled = false;
         confirmOrderBtn.textContent = "Підтвердити замовлення";
         return;
     }
         let text = `🛒 НОВЕ ЗАМОВЛЕННЯ
 
-👤 ${surname} ${name} ${father}
-📞 ${phone}
-📧 ${email}
+Прізвище: ${surname} 
+Ім'я: ${name} 
+По-батькові: ${father}
+Телефон: ${phone}
+Email: ${email}
 
-🏙️ ${city}
-🚚 ${delivery}
-🏢 ${branch}
+Місто: ${city}
+Пошта: ${delivery}
+Віділення: ${branch}
 
-💬 ${comment}
+Коментар: ${comment}
 
 -------------------
 
@@ -194,9 +196,9 @@ if (!valid) return;
 
             localStorage.removeItem("chystodim_cart");
 
-            alert("Замовлення оформлено 🎉");
-
-            location.href = "index.html";
+            setTimeout(() => {
+    location.href = "index.html";
+}, 1000);
 
         } else {
 
@@ -263,4 +265,9 @@ if (deliveryModal && openDeliveryBtn && closeDeliveryBtn) {
         }
     });
 
+}
+const savedTheme = localStorage.getItem("chystodim_theme");
+
+if (savedTheme) {
+    document.documentElement.setAttribute("data-theme", savedTheme);
 }
