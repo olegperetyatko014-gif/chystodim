@@ -1,4 +1,147 @@
+const SUPABASE_URL = "https://misjubvcloitgtyyximr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_tjERGfE2aVnK-LWT_GxbWQ_qUgXq9-o";
 
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const cart = JSON.parse(localStorage.getItem("chystodim_cart")) || {};
+
+const checkoutItems = document.getElementById("checkoutItems");
+const checkoutCount = document.getElementById("checkoutCount");
+const checkoutTotal = document.getElementById("checkoutTotal");
+
+async function loadCheckout() {
+
+    if (Object.keys(cart).length === 0) {
+        checkoutItems.innerHTML = "<p>Кошик порожній.</p>";
+        checkoutCount.textContent = "0";
+        checkoutTotal.textContent = "0 ₴";
+        return;
+    }
+
+    const { data: products, error } = await db
+        .from("products")
+        .select("*");
+
+    if (error) {
+        console.error(error);
+        checkoutItems.innerHTML = "<p>Помилка завантаження.</p>";
+        return;
+    }
+
+    let total = 0;
+    let count = 0;
+
+    checkoutItems.innerHTML = "";
+
+    for (const [id, qty] of Object.entries(cart)) {
+
+        const product = products.find(p => String(p.id) === String(id));
+
+        if (!product) continue;
+
+        total += product.price * qty;
+        count += qty;
+
+        checkoutItems.innerHTML += `
+            <div class="checkout-item">
+
+                <img class="checkout-image"
+                     src="${product.image}"
+                     alt="${product.name}">
+
+                <div class="checkout-info">
+                    <h4>${product.name}</h4>
+                    <div>${qty} × ${product.price} ₴</div>
+                </div>
+
+                <div>
+                    ${product.price * qty} ₴
+                </div>
+
+            </div>
+        `;
+    }
+
+    checkoutCount.textContent = count;
+    checkoutTotal.textContent = total + " ₴";
+}
+
+loadCheckout();
+const confirmOrderBtn = document.getElementById("confirmOrderBtn");
+
+confirmOrderBtn.addEventListener("click", sendOrder);
+
+async function sendOrder() {
+
+    const surname = document.getElementById("customerSurname").value.trim();
+    const name = document.getElementById("customerName").value.trim();
+    const father = document.getElementById("customerFather").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+    const delivery = document.getElementById("deliveryMethod").value;
+    const branch = document.getElementById("customerBranch").value.trim();
+    const city = document.getElementById("customerCity").value.trim();
+    const comment = document.getElementById("customerComment").value.trim();
+
+    const requiredFields = [
+    "customerSurname",
+    "customerName",
+    "customerFather",
+    "customerPhone",
+    "deliveryMethod",
+    "customerBranch",
+    "customerCity"
+];
+
+let valid = true;
+
+requiredFields.forEach(id => {
+    const field = document.getElementById(id);
+
+    if (!field.value.trim()) {
+        field.classList.add("error");
+        valid = false;
+    } else {
+        field.classList.remove("error");
+    }
+});
+
+if (!valid) return;
+
+    confirmOrderBtn.disabled = true;
+    confirmOrderBtn.textContent = "Оформлення...";
+        const { data: orderData, error: orderError } = await db
+        .from("orders")
+        .insert({
+            customer_name: `${surname} ${name} ${father}`,
+            customer_phone: phone,
+            customer_email: email,
+            customer_city: city,
+            delivery: delivery,
+            branch: branch,
+            comment: comment
+        })
+        .select()
+        .single();
+
+    if (orderError) {
+        console.error(orderError);
+        alert("Не вдалося створити замовлення");
+        confirmOrderBtn.disabled = false;
+        confirmOrderBtn.textContent = "Підтвердити замовлення";
+        return;
+    }
+        let text = `🛒 НОВЕ ЗАМОВЛЕННЯ
+
+👤 ${surname} ${name} ${father}
+📞 ${phone}
+📧 ${email}
+
+🏙️ ${city}
+🚚 ${delivery}
+🏢 ${branch}
+
+💬 ${comment}
 
 -------------------
 
