@@ -537,23 +537,24 @@ checkoutBtn.addEventListener('click', () => {
         return;
     }
 
-    // Обчислюємо загальну суму
     let total = 0;
 
     Object.entries(cart).forEach(([id, qty]) => {
+
         const product = PRODUCTS.find(p => p.id == id);
 
-        if (product) {
+        if(product){
             total += product.price * qty;
         }
+
     });
 
-    if (total < 2000) {
-        showToast(`Мінімальна сума замовлення — 2000 ₴.`);
+    if(total < 2000){
+        showToast("Мінімальна сума замовлення — 2000 ₴");
         return;
     }
 
-    checkoutModal.style.display = "flex";
+    window.location.href = "checkout.html";
 
 });
 
