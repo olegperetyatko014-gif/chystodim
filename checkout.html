@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Оформлення замовлення</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container navbar__inner">
+
+        <a href="index.html" class="logo">
+            <span class="logo__text">Чисто<b>Дім</b></span>
+        </a>
+
+        <div class="checkout-top-buttons">
+
+    <a href="index.html" class="btn btn--ghost">
+        Назад до магазину
+    </a>
+
+<a href="#" id="openDeliveryBtn" class="btn btn--ghost">
+    Умови доставки та оплати
+</a>
+</div>
+
+    </div>
+</header>
+
+<main class="checkout-page">
+
+<div class="container checkout-wrapper">
+
+    <!-- ЛІВА КОЛОНКА -->
+
+    <section class="checkout-form">
+
+        <h1>Оформлення замовлення</h1>
+
+        <input id="customerSurname" type="text" placeholder="Прізвище">
+        <input id="customerName" type="text" placeholder="Ім'я">
+        <input id="customerFather" type="text" placeholder="По батькові">
+
+        <input id="customerPhone" type="tel" placeholder="Телефон">
+
+        <input id="customerEmail" type="email" placeholder="Email (необов'язково)">
+
+        <select id="deliveryMethod">
+            <option value="">Оберіть спосіб доставки</option>
+            <option>Нова пошта</option>
+            <option>Укрпошта</option>
+        </select>
+
+        <input id="customerBranch" type="text" placeholder="Відділення">
+
+        <input id="customerCity" type="text" placeholder="Місто">
+
+        <textarea
+            id="customerComment"
+            rows="4"
+            placeholder="Коментар (необов'язково)"
+        ></textarea>
+
+        <button id="confirmOrderBtn" class="btn btn--accent btn--full">
+            Підтвердити замовлення
+        </button>
+
+    </section>
+
+    <!-- ПРАВА КОЛОНКА -->
+
+    <aside class="checkout-summary">
+
+        <h2>Ваше замовлення</h2>
+
+        <div id="checkoutItems"></div>
+
+        <div class="checkout-total">
+
+            <div class="total-row">
+                <span>Товарів</span>
+                <span id="checkoutCount">0</span>
+            </div>
+
+            <div class="total-row total-price">
+                <span>Разом</span>
+                <span id="checkoutTotal">0 ₴</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+</div>
+
+</main>
+<div class="checkout-modal" id="deliveryModal">
+
+    <div class="checkout-content">
+
+        <button id="closeDeliveryBtn">✕</button>
+
+        <h2>🚚 Умови доставки та оплати</h2>
+
+        <h3>Доставка</h3>
+
+        <p>• Відправлення здійснюється Новою Поштою і Укрпоштою по всій Україні.</p>
+
+        <p>• Замовлення обробляються протягом 1 робочого дня.</p>
+
+        <p>• Після відправлення Ви отримаєте номер ТТН.</p>
+
+        <hr>
+
+        <h3>Оплата</h3>
+
+        <p>• На рахунок ФОП.</p>
+
+        <p>• Післяплата при отриманні.</p>
+
+        <hr>
+
+        <h3>Повернення</h3>
+
+        <p>Повернення товару можливе згідно із Законом України "Про захист прав споживачів".</p>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="checkout.js"></script>
+
+</body>
+</html>
