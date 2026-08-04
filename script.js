@@ -1,5 +1,5 @@
 /* =========================================================
-   ЧистоДім — script.js
+   СяйДім — script.js
    Catalog rendering, filtering/search, and cart logic
    ========================================================= */
 
@@ -29,8 +29,6 @@ const supabase = window.supabase.createClient(
 
     PRODUCTS.length = 0;
     PRODUCTS.push(...data);
-
-    renderCatalog();
 }
 const PRODUCTS = [];
 
@@ -80,8 +78,9 @@ const PRODUCTS = [];
   const cartTotalEl   = document.getElementById('cartTotal');
   const clearCartBtn  = document.getElementById('clearCartBtn');
   const checkoutBtn   = document.getElementById('checkoutBtn');
-  const toast         = document.getElementById('toast');
 
+  const clearFavoritesBtn = document.getElementById('clearFavoritesBtn');
+  console.log(clearFavoritesBtn);
   const favToggle     = document.getElementById('favToggle');
   const favClose      = document.getElementById('favClose');
   const favDrawer     = document.getElementById('favDrawer');
@@ -126,7 +125,10 @@ const PRODUCTS = [];
     const term = searchTerm.trim().toLowerCase();
 
     const filtered = PRODUCTS.filter(p => {
-      const matchesCategory = activeFilter === 'all' || p.category === activeFilter;
+      const matchesCategory =
+  activeFilter === 'all' ||
+  p.category === activeFilter ||
+  p.subcategory === activeFilter;
       const matchesSearch = !term || p.name.toLowerCase().includes(term) || CATEGORY_LABELS[p.category].toLowerCase().includes(term);
       return matchesCategory && matchesSearch;
     });
@@ -172,20 +174,28 @@ const PRODUCTS = [];
   --------------------------------------------------------- */
   function setActiveFilter(filter) {
     activeFilter = filter;
-    document.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c.dataset.filter === filter));
+
+    document.querySelectorAll('[data-filter]').forEach(c => {
+        c.classList.toggle('is-active', c.dataset.filter === filter);
+    });
+
     renderCatalog();
-  }
+}
 
   chips.addEventListener('click', e => {
-    const chip = e.target.closest('.chip');
-    if (!chip) return;
-    setActiveFilter(chip.dataset.filter);
+
+    const button = e.target.closest('[data-filter]');
+    if (!button) return;
+
+    setActiveFilter(button.dataset.filter);
+
     const catalog = document.getElementById('catalog');
 
-window.scrollTo({
-    top: catalog.offsetTop - 170,
-    behavior: 'smooth'
-});
+    window.scrollTo({
+        top: catalog.offsetTop - 170,
+        behavior: 'smooth'
+    });
+
 });
 
   document.querySelectorAll('[data-filter]').forEach(link => {
@@ -381,10 +391,12 @@ function changeQty(id, delta) {
 
   function renderFavorites() {
     const ids = Object.keys(favorites);
+    if (favBadge) {
     favBadge.textContent = ids.length;
+}
 
     if (ids.length === 0) {
-      favBody.innerHTML = `<p class="fav-empty">У вас ще немає обраних товарів.<br>Натисніть ♥ на товарі, щоб додати 💛</p>`;
+      favBody.innerHTML = `<p class="fav-empty">У вас ще немає обраних товарів.<br>Натисніть ♥ на товарі, щоб додати товари</p>`;
       return;
     }
 
@@ -436,10 +448,35 @@ function changeQty(id, delta) {
     overlay.classList.remove('is-active');
     document.body.style.overflow = '';
   }
-  favToggle.addEventListener('click', openFav);
-  favClose.addEventListener('click', closeFav);
-  overlay.addEventListener('click', () => { closeFav(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFav(); });
+  if (favToggle) {
+    favToggle.addEventListener('click', openFav);
+}
+
+if (favClose) {
+    favClose.addEventListener('click', closeFav);
+}
+
+if (overlay) {
+    overlay.addEventListener('click', closeFav);
+}
+if (clearFavoritesBtn) {
+    clearFavoritesBtn.addEventListener('click', () => {
+
+        for (const id in favorites) {
+            delete favorites[id];
+        }
+
+        localStorage.removeItem('chystodim_favorites');
+
+        renderFavorites();
+        renderFavButtons();
+
+        showToast("Обране очищено");
+    });
+}
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeFav();
+});
 
   const navFavLink = document.getElementById('navFavLink');
   if (navFavLink) {
@@ -456,10 +493,14 @@ function changeQty(id, delta) {
   function renderCart() {
     const entries = Object.entries(cart);
     const totalItems = entries.reduce((sum, [, qty]) => sum + qty, 0);
+    if (cartBadge) {
+    if (cartBadge) {
     cartBadge.textContent = totalItems;
+}
+}
 
     if (entries.length === 0) {
-      cartBody.innerHTML = `<p class="cart-empty">Ваш кошик порожній.<br>Додайте товари з каталогу 🧺</p>`;
+      cartBody.innerHTML = `<p class="cart-empty">Ваш кошик порожній.<br>Додайте товари з каталогу</p>`;
       cartTotalEl.textContent = '0 ₴';
       return;
     }
@@ -590,10 +631,13 @@ if (
 
     return;
 }
-
+const {
+    data: { user }
+} = await supabase.auth.getUser();
 const { data: orderData, error: orderError } = await supabase
 .from("orders")
 .insert({
+    user_id: user?.id ?? null,
     customer_name: name,
     customer_phone: phone,
     customer_email: email,
@@ -677,17 +721,17 @@ ${order}`;
         console.log(data);
 
         if (data.success) {
-            showToast("Замовлення оформлено 🎉");
-            clearCart();
-            closeCart();
-            checkoutModal.style.display = "none";
-            confirmOrderBtn.disabled = false;
-confirmOrderBtn.textContent = "Підтвердити замовлення";
+
+          console.log("SUCCESS");
+    showToast("✅ Замовлення успішно оформлено!");
+
+setTimeout(() => {
+    clearCart();
+    closeCart();
+    checkoutModal.style.display = "none";
+}, 2300);
   } else {
     showToast("Помилка відправки");
-
-    confirmOrderBtn.disabled = false;
-    confirmOrderBtn.textContent = "Підтвердити замовлення";
 }
 } catch (err) {
     console.error(err);
@@ -702,30 +746,73 @@ confirmOrderBtn.textContent = "Підтвердити замовлення";
      11. CART DRAWER OPEN / CLOSE
   --------------------------------------------------------- */
   function openCart() {
+
     cartDrawer.classList.add('is-open');
     overlay.classList.add('is-active');
     document.body.style.overflow = 'hidden';
-  }
+
+}
   function closeCart() {
     cartDrawer.classList.remove('is-open');
     overlay.classList.remove('is-active');
     document.body.style.overflow = '';
   }
-  cartToggle.addEventListener('click', openCart);
-  cartClose.addEventListener('click', closeCart);
-  overlay.addEventListener('click', closeCart);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+  if (cartToggle) {
+    cartToggle.addEventListener('click', openCart);
+}
 
+if (cartClose) {
+    cartClose.addEventListener('click', closeCart);
+}
+
+if (overlay) {
+    overlay.addEventListener('click', closeCart);
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeCart();
+});
+const cartMenuBtn = document.getElementById("cartMenuBtn");
+
+if (cartMenuBtn) {
+
+    cartMenuBtn.onclick = (e) => {
+
+        e.preventDefault();
+
+        openCart();
+
+        if (profileDropdown) {
+            profileDropdown.classList.remove("show");
+        }
+
+    };
+
+}
+const toast = document.getElementById("toast");
   /* ---------------------------------------------------------
      12. TOAST NOTIFICATIONS
   --------------------------------------------------------- */
   let toastTimer = null;
-  function showToast(message) {
+
+function showToast(message) {
+    console.log("showToast викликалась:", message);
+
     toast.textContent = message;
-    toast.classList.add('is-active');
+    toast.classList.add("is-active");
+
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('is-active'), 2200);
-  }
+
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("is-active");
+    }, 2200);
+}
+console.log("orderSuccess =", localStorage.getItem("orderSuccess"));
+
+if (localStorage.getItem("orderSuccess")) {
+    showToast("Замовлення успішно оформлено");
+    localStorage.removeItem("orderSuccess");
+}
 
   /* ---------------------------------------------------------
      14. DARK THEME TOGGLE
@@ -738,11 +825,42 @@ confirmOrderBtn.textContent = "Підтвердити замовлення";
     try { localStorage.setItem('chystodim_theme', theme); }
     catch (err) { /* storage unavailable — theme stays in-memory only */ }
   }
-  themeToggle.addEventListener('click', () => {
-    const next = getTheme() === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    showToast(next === 'dark' ? 'Темна тема увімкнена' : 'Світла тема увімкнена');
-  });
+  const themeMenuBtn = document.getElementById("themeMenuBtn");
+
+if (themeMenuBtn) {
+
+    themeMenuBtn.addEventListener("click", (e) => {
+
+        e.preventDefault();
+
+        const next = getTheme() === 'dark' ? 'light' : 'dark';
+
+        setTheme(next);
+
+        showToast(
+            next === 'dark'
+                ? 'Темна тема увімкнена'
+                : 'Світла тема увімкнена'
+        );
+
+        profileDropdown.classList.remove("show");
+
+    });
+
+}
+if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+        const nextTheme = getTheme() === "dark" ? "light" : "dark";
+
+        setTheme(nextTheme);
+
+        showToast(
+            nextTheme === "dark"
+                ? "Темна тема увімкнена"
+                : "Світла тема увімкнена"
+        );
+    });
+}
 
   /* ---------------------------------------------------------
      13. INIT
@@ -780,9 +898,11 @@ deliveryModal.addEventListener("click", (e) => {
         deliveryModal.style.display = "none";
     }
 });
-loadProducts();
-renderCart();
-renderFavorites();
+loadProducts().then(() => {
+    renderCatalog();
+    renderCart();
+    renderFavorites();
+});
 
 /* ===========================
    Hide Topbar on Scroll
@@ -848,3 +968,68 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 });
 })();
+async function saveFavoritesToCloud() {
+
+    if (!currentUser) return;
+
+    await db
+        .from("favorites")
+        .delete()
+        .eq("user_id", currentUser.id);
+
+    const rows = Object.keys(favorites).map(id => ({
+        user_id: currentUser.id,
+        product_id: id
+    }));
+
+    if (rows.length > 0) {
+        await db.from("favorites").insert(rows);
+    }
+}
+const profileBtn = document.getElementById("profileBtn");
+const profileMenu = document.getElementById("profileMenu");
+const logoutBtn = document.getElementById("logoutBtn");
+
+profileBtn.addEventListener("click", async (e) => {
+
+    e.preventDefault();
+
+    const { data } = await db.auth.getUser();
+
+    if (!data.user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    profileMenu.classList.toggle("show");
+
+});
+
+logoutBtn.addEventListener("click", async ()=>{
+
+    await db.auth.signOut();
+
+    location.reload();
+
+});
+
+document.addEventListener("click",(e)=>{
+
+    if(
+        !profileBtn.contains(e.target) &&
+        !profileMenu.contains(e.target)
+    ){
+
+        profileMenu.classList.remove("show");
+
+    }
+
+    if (localStorage.getItem("orderSuccess") === "1") {
+
+    showToast("✅ Замовлення успішно оформлено!");
+
+    localStorage.removeItem("orderSuccess");
+
+}
+
+});
