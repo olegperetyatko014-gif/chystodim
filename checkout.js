@@ -79,7 +79,7 @@ async function sendOrder() {
     const phone = document.getElementById("customerPhone").value.trim();
     const email = document.getElementById("customerEmail").value.trim();
     const delivery = document.getElementById("deliveryMethod").value;
-    const branch = document.getElementById("customerBranch").value.trim();
+    const branch = document.getElementById("branchInput").value.trim();
     const city = document.getElementById("customerCity").value.trim();
     const comment = document.getElementById("customerComment").value.trim();
 
@@ -89,7 +89,7 @@ async function sendOrder() {
     "customerFather",
     "customerPhone",
     "deliveryMethod",
-    "customerBranch",
+    "branchInput",
     "customerCity"
 ];
 
@@ -195,7 +195,8 @@ Email: ${email}
         if (result.success) {
 
             localStorage.removeItem("chystodim_cart");
-
+localStorage.setItem("orderSuccess", "1");
+console.log(localStorage.getItem("orderSuccess"));
             setTimeout(() => {
     location.href = "index.html";
 }, 1000);
@@ -227,7 +228,7 @@ Email: ${email}
     "customerFather",
     "customerPhone",
     "deliveryMethod",
-    "customerBranch",
+    "branchInput",
     "customerCity"
 ].forEach(id => {
 
@@ -271,3 +272,15 @@ const savedTheme = localStorage.getItem("chystodim_theme");
 if (savedTheme) {
     document.documentElement.setAttribute("data-theme", savedTheme);
 }
+const deliveryMethod = document.getElementById("deliveryMethod");
+const branchInput = document.getElementById("branchInput");
+
+deliveryMethod.addEventListener("change", function () {
+
+    if (this.value === "Самовивіз") {
+        branchInput.style.display = "none";
+    } else {
+        branchInput.style.display = "block";
+    }
+
+});
