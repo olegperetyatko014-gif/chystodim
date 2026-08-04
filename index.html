@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="uk">
 <head>
+  <link rel="icon" type="image/png" href="images/logo.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
@@ -12,11 +13,12 @@
     } catch (e) {}
   })();
 </script>
-<title>ЧистоДім — Інтернет-магазин побутової хімії</title>
-<meta name="description" content="ЧистоДім — засоби для прання, миття посуду, прибирання та освіжувачі повітря з доставкою по Україні.">
+<title>СяйДім — Інтернет-магазин побутової хімії</title>
+<meta name="description" content="СяйДім — засоби для прання, миття посуду, прибирання та освіжувачі повітря з доставкою по Україні.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,13 +26,26 @@
 <!-- ===== TOP UTILITY BAR ===== -->
 <div class="topbar">
   <div class="container topbar__inner">
+
     <div class="topbar__info">
-      <span>🕒 Пн–Сб: 09:00–18:00</span>
+      <span>
+        <i class="fi fi-rr-clock-three topbar-icon"></i>
+        Пн–Сб: 09:00–18:00
+      </span>
     </div>
+
     <div class="topbar__info">
-      <a href="tel:+380986099805">📞 +380 986-099-805</a>
-      <a href="mailto:hello@chystodim.ua">✉️ peretyatko2128@gmail.com</a>
+      <a href="tel:+380986099805">
+        <i class="fi fi-rr-phone-call topbar-icon"></i>
+        +380 986-099-805
+      </a>
+
+      <a href="mailto:peretyatko2128@gmail.com">
+        <i class="fi fi-rr-envelope topbar-icon"></i>
+        peretyatko2128@gmail.com
+      </a>
     </div>
+
   </div>
 </div>
 
@@ -45,7 +60,7 @@
           <path d="M24 14c3 5 7 9 7 14a7 7 0 1 1-14 0c0-5 4-9 7-14z" fill="var(--surface)" opacity="0.9"/>
         </svg>
       </span>
-      <span class="logo__text">Чисто<b>Дім</b></span>
+      <span class="logo__text">Сяй<b>Дім</b></span>
     </a>
 
     <nav class="nav-links" id="navLinks">
@@ -59,14 +74,6 @@
       <a href="#contact">Контакти</a>
     </nav>
 
-    <div class="navbar__search">
-      <input type="text" id="searchInput" placeholder="Пошук засобів, бренду, аромату…" aria-label="Пошук товарів">
-      <button id="searchBtn" aria-label="Пошук">
-        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M21 21l-4.35-4.35M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-
-
  <div class="nav-actions">
     <button class="theme-toggle" id="themeToggle" aria-label="Перемкнути тему">
       <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -78,11 +85,33 @@
       <span class="fav-toggle__badge" id="favBadge">0</span>
     </button>
 
-    <button class="cart-toggle" id="cartToggle" aria-label="Відкрити кошик">
+    <button class="fav-toggle" id="cartToggle" aria-label="Відкрити кошик">
       <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L20 8H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
       <span class="cart-toggle__badge" id="cartBadge">0</span>
     </button>
-  </div>
+
+    <div class="profile-wrapper">
+
+    <button id="profileBtn" class="fav-toggle" aria-label="Профіль">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+            <circle cx="12" cy="8" r="4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"/>
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <div id="profileMenu" class="profile-menu">
+    <button id="logoutBtn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    <span>Вийти</span>
+</button>
+</div>
   </div>
 </header>
 
@@ -95,7 +124,6 @@
       <p>Перевірені засоби для прання, посуду та прибирання. Мінімальна сума замовленя 2000₴.</p>
       <div class="hero__actions">
         <a href="#catalog" class="btn btn--accent">Перейти до каталогу</a>
-        <a href="#about" class="btn btn--ghost">Чому ми</a>
       </div>
       <div class="hero__stats">
       </div>
@@ -125,36 +153,110 @@
       <h2></h2>
     </div>
     <!-- ===== CATEGORY CHIPS ===== -->
-<section class="chips-section">
-  <div class="container chips" id="chips">
-    <button class="chip is-active" data-filter="all">Усі товари</button>
-    <button class="chip" data-filter="laundry">🧺 Прання</button>
-    <button class="chip" data-filter="dishwashing">🍽️ Посуд</button>
-    <button class="chip" data-filter="cleaning">🧽 Прибирання</button>
-    <button class="chip" data-filter="air">🌿 Освіжувачі</button>
-    <button class="chip" data-filter="shampoo">🧴 Шампуні</button>
-    <button class="chip" data-filter="toothpaste">🦷 Зубні пасти</button>
-  </div>
-</section>
-    <div class="product-grid" id="productGrid"><!-- generated by script.js --></div>
-    <p class="empty-state" id="emptyState" hidden>Нічого не знайдено. Спробуйте інший запит або категорію.</p>
-  </div>
-</section>
+<!-- ===== CATEGORY CHIPS + SEARCH ===== -->
+    <div class="catalog-toolbar">
 
+        <div class="chips" id="chips">
+
+    <div class="category-item">
+        <button class="chip is-active" data-filter="all">
+            Усі товари
+        </button>
+    </div>
+
+    <div class="category-item">
+        <button class="chip" data-filter="laundry">
+            Прання
+        </button>
+
+        <div class="subcategories">
+            <button data-filter="capsules">Капсули</button>
+            <button data-filter="powder">Порошки</button>
+            <button data-filter="gels">Гелі</button>
+            <button data-filter="conditioner">Кондиціонери</button>
+        </div>
+    </div>
+
+
+    <div class="category-item">
+        <button class="chip" data-filter="dishwashing">
+            Посуд
+        </button>
+
+        <div class="subcategories">
+            <button data-filter="dish-gel">Гелі для посуду</button>
+            <button data-filter="sponges">Губки</button>
+        </div>
+    </div>
+
+
+    <div class="category-item">
+        <button class="chip" data-filter="cleaning">
+            Прибирання
+        </button>
+
+        <div class="subcategories">
+            <button data-filter="floor">Для підлоги</button>
+            <button data-filter="glass">Для скла</button>
+            <button data-filter="bathroom">Ванна кімната</button>
+        </div>
+    </div>
+
+
+    <div class="category-item">
+        <button class="chip" data-filter="shampoo">
+            Шампуні
+        </button>
+    </div>
+
+
+    <div class="category-item">
+        <button class="chip" data-filter="toothpaste">
+            Зубні пасти
+        </button>
+    </div>
+
+</div>
+
+<div class="catalog-search">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Пошук засобів, бренду, аромату…"
+        aria-label="Пошук товарів">
+
+    <button id="searchBtn" aria-label="Пошук">
+        <svg viewBox="0 0 24 24" width="18" height="18">
+            <path d="M21 21l-4.35-4.35M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"/>
+        </svg>
+    </button>
+</div>
+
+    </div>
+
+<div class="product-grid" id="productGrid"><!-- generated by script.js --></div>
+
+<p class="empty-state" id="emptyState" hidden>
+    Нічого не знайдено. Спробуйте інший запит або категорію.
+</p>
+</div>
+</section>
 <!-- ===== ABOUT ===== -->
 <section class="about" id="about">
+
   <div class="container about__inner">
-    <div class="about__media" aria-hidden="true">
-      <svg viewBox="0 0 220 220" width="100%">
-        <circle cx="110" cy="110" r="100" fill="var(--primary-100)"/>
-        <path d="M60 130c0-40 22-70 50-70s50 30 50 70-25 55-50 55-50-15-50-55z" fill="var(--primary)"/>
-        <rect x="85" y="60" width="50" height="18" rx="9" fill="var(--surface)"/>
-        <circle cx="110" cy="150" r="14" fill="var(--accent)"/>
-      </svg>
+
+    <div class="about__media">
+      <img src="images/about.png" alt="Про нас">
     </div>
+
     <div class="about__content">
       <span class="eyebrow">Про нас</span>
-      <h2>Родинний бізнес, який знає, що таке справжня чистота</h2>
+      <h2>Ми знаємо, що таке справжня чистота</h2>
       <p>Ми відбираємо засоби, які реально працюють: тестуємо кожен бренд, перевіряємо склад і відмовляємось від того, що не відповідає нашим стандартам якості та безпеки для родини.</p>
       <ul class="about__list">
         <li><strong>Тільки перевірені бренди</strong> — без підробок і сумнівних аналогів</li>
@@ -175,17 +277,24 @@
     </div>
     <div class="contact__grid">
       <div class="contact__card">
-        <span class="contact__icon">📞</span>
+        <span class="contact__icon">
+    <i class="fi fi-rr-phone-call"></i>
+</span>
         <h3>Телефон</h3>
         <p><a href="tel:+380501234567">+38 (098) 609-98-05</a><br><a href="tel:+380671234567"></a></p>
+        <p><a href="tel:+380501234567">+38 (097) 444-84-60</a><br><a href="tel:+380671234567"></a></p>
       </div>
       <div class="contact__card">
-        <span class="contact__icon">✉️</span>
+        <span class="contact__icon">
+    <i class="fi fi-rr-envelope"></i>
+</span>
         <h3>Email</h3>
         <p><a href="mailto:hello@chystodim.ua">peretyatko2128@gmail.com</a></p>
       </div>
       <div class="contact__card">
-        <span class="contact__icon">🕒</span>
+        <span class="contact__icon">
+    <i class="fi fi-rr-clock-three"></i>
+</span>
         <h3>Графік роботи</h3>
         <p>Пн–Сб: 09:00–18:00<br>Нд: Вихідний</p>
       </div>
@@ -197,7 +306,7 @@
 <footer class="footer">
   <div class="container footer__inner">
 <div class="footer__bottom">
-  <p>© ЧистоДім. Інтернет-магазин побутової хімії та засобів для дому. Чистота, якій можна довіряти.</p>
+  <p>© СяйДім. Інтернет-магазин побутової хімії та засобів для дому. Чистота, якій можна довіряти.</p>
 
 <button class="footer-policy-btn" id="deliveryBtn" type="button">
     Умови доставки та оплати
@@ -224,7 +333,7 @@
     </div>
   </div>
   <div class="footer__bottom container">
-    <span>© 2026 ЧистоДім. Усі права захищено.</span>
+    <span>© 2026 СяйДім. Усі права захищено.</span>
   </div>
 </footer>
 
@@ -255,13 +364,19 @@
   </div>
   <div class="cart-drawer__body" id="favBody">
     <!-- generated by script.js -->
-  </div>
+</div>
+
+<div class="cart-drawer__footer">
+    <button class="btn btn--ghost btn--full" id="clearFavoritesBtn">
+        Очистити обране
+    </button>
+</div>
 </aside>
 
 <div class="toast" id="toast"></div>
 
 <div class="checkout-modal" id="checkoutModal">
-  <div class="checkout-content">
+  <div class="delivery-content">
 <button id="closeCheckoutBtn">✕</button>
     <h2>Оформлення замовлення</h2>
 
@@ -312,9 +427,35 @@ placeholder="Коментар до замовлення (необов'язков
 
         <button id="closeDeliveryBtn">✕</button>
 
-        <h2>🚚 Умови доставки та оплати</h2>
+        <h2>Умови доставки та оплати</h2>
 
-        <h3>Доставка</h3>
+        <h3>
+    <span class="section-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 6H15V16H3V6Z"
+          stroke="#0E7C66"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <path d="M15 9H18L21 12V16H15"
+          stroke="#0E7C66"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <circle cx="7" cy="18" r="2"
+            stroke="#0E7C66"
+            stroke-width="2"/>
+
+    <circle cx="18" cy="18" r="2"
+            stroke="#0E7C66"
+            stroke-width="2"/>
+</svg>
+    </span>
+    Доставка по Україні
+</h3>
 
         <p>
             • Відправлення здійснюється Новою Поштою і Укрпоштою по всій Україні.
@@ -325,20 +466,70 @@ placeholder="Коментар до замовлення (необов'язков
         </p>
 
         <p>
-            • Після відправлення Ви отримаєте номер ТТН.
+            • Після відправлення ви отримаєте номер ТТН.
         </p>
 
+        <p>
+            • Термін доставки 1-2 дні, залежно від вашого насаленого пункту.
+        </p>
+
+        <p>
+            • Вартість доставки окремо приотримані замовленя за тарифами "Нової пошти" та "Укрпошти" .
+        </p>
+        
+        <h3>
+    <span class="section-icon">
+        <svg viewBox="0 0 24 24">
+            <path d="M4 20h16M6 20V8l6-4 6 4v12M10 12h4M10 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </span>
+    Доставка по Львову
+</h3>
+
+        <p>• Здійснюється кожної середи.</p>
+
+        <p>• Доставка по Львову безкоштовна.</p>
         <hr>
 
-        <h3>Оплата</h3>
+        <h3>
+    <span class="section-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+
+    <rect x="3" y="5" width="18" height="14" rx="2"
+          stroke="#0E7C66"
+          stroke-width="2"/>
+
+    <path d="M3 9H21"
+          stroke="#0E7C66"
+          stroke-width="2"
+          stroke-linecap="round"/>
+
+    <path d="M7 15H10"
+          stroke="#0E7C66"
+          stroke-width="2"
+          stroke-linecap="round"/>
+</svg>
+    </span>
+    Оплата
+</h3>
 
         <p>• На рахунок ФОП.</p>
         
         <p>• Післяплата при отриманні.</p>
 
+        <p>• Реквізити рахунку для оплати надійдуть вам після опрацювання замовлення.</p>
+
         <hr>
 
-        <h3>Повернення</h3>
+        <h3>
+    <span class="section-icon">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3zm-3 9l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </span>
+    Повернення
+</h3>
 
         <p>
             Повернення товару можливе згідно із Законом України
@@ -349,6 +540,7 @@ placeholder="Коментар до замовлення (необов'язков
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
