@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+<meta charset="UTF-8">
+<title>Адмінка | СяйДім</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+
+<body>
+
+
+<div class="admin-layout">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h2>СяйДім</h2>
+
+
+<button onclick="openTab('catalog', this)">
+<i class="fa-solid fa-dolly"></i>
+Товари
+</button>
+
+
+<button onclick="openTab('add', this)">
+<i class="fa-solid fa-circle-plus"></i>
+Додати товар
+</button>
+
+
+<button onclick="openTab('texts', this)">
+<i class="fa-solid fa-file-lines"></i>
+Тексти сайту
+</button>
+
+
+<button onclick="openTab('orders', this)">
+<i class="fa-solid fa-cart-shopping"></i>
+Замовлення
+</button>
+
+
+<button onclick="openTab('settings', this)">
+<i class="fa-solid fa-gear"></i>
+Налаштування
+</button>
+
+
+
+<button class="logout-btn" onclick="logout()">
+<i class="fa-solid fa-right-from-bracket"></i>
+Вийти
+</button>
+
+
+</aside>
+
+
+
+
+
+<!-- MAIN -->
+
+<main class="admin-main">
+
+
+
+
+
+<!-- ТОВАРИ -->
+
+<section id="catalog" class="tab-content">
+
+
+
+
+
+<div id="productsList" class="product-grid"></div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ДОДАТИ ТОВАР -->
+
+<section id="add" class="tab-content" style="display:none;">
+
+
+
+<div class="add-product-box">
+
+
+<div class="add-form-left">
+
+
+<input id="productName" placeholder="Назва товару">
+
+
+<input id="productPrice" placeholder="Ціна">
+
+
+<input id="productCategory" placeholder="Категорія">
+
+
+<input id="productImage" placeholder="Посилання на картинку">
+
+
+<input id="productVol" placeholder="Об'єм / вага">
+
+
+<input id="productBadge" placeholder="Бейдж">
+
+
+<input id="productStock" placeholder="Кількість">
+
+
+
+<button id="addProduct">
+Додати товар
+</button>
+
+
+</div>
+
+
+
+<div class="big-image-preview">
+
+<img id="imagePreview" src="" alt="">
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ТЕКСТИ -->
+
+<section id="texts" class="tab-content" style="display:none;">
+
+
+<div id="textsList">
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ЗАМОВЛЕННЯ -->
+
+<section id="orders" class="tab-content" style="display:none;">
+
+
+<h2>
+🛒 Замовлення
+</h2>
+
+
+<p>
+Тут будуть замовлення
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- НАЛАШТУВАННЯ -->
+
+<section id="settings" class="tab-content" style="display:none;">
+
+
+<h2>
+⚙ Налаштування
+</h2>
+
+
+<p>
+Тут будуть налаштування магазину
+</p>
+
+
+</section>
+
+
+
+
+<div id="editModal" class="modal">
+
+    <div class="modal-box">
+
+        <h2>Редагувати товар</h2>
+
+        <input id="editName" placeholder="Назва">
+
+        <input id="editPrice" placeholder="Ціна">
+
+        <input id="editCategory" placeholder="Категорія">
+
+        <input id="editImage" placeholder="Картинка">
+
+        <input id="editVol" placeholder="Об'єм">
+
+        <input id="editBadge" placeholder="Бейдж">
+
+<input id="editStock" placeholder="Кількість">
+
+        <button onclick="saveEdit()">
+            💾 Зберегти
+        </button>
+
+        <button onclick="closeEdit()">
+            ❌ Закрити
+        </button>
+
+    </div>
+
+</div>
+</main>
+
+
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+<script src="admin.js"></script>
+
+<script src="admin-texts.js"></script>
+
+
+</body>
+
+</html>
