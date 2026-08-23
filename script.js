@@ -146,7 +146,6 @@ const PRODUCTS = [];
   : productIcon(p.category, p.tint)}
         </div>
         <div class="product-card__body">
-          <span class="product-card__cat">${CATEGORY_LABELS[p.category]}</span>
           <h3 class="product-card__title">${p.name}</h3>
           <span class="product-card__vol">Об'єм/вага: ${p.vol}</span>
           <div class="product-card__footer">
@@ -361,7 +360,7 @@ function changeQty(id, delta) {
       showToast('Видалено з обраного');
     } else {
       favorites[id] = true;
-      showToast('Додано в обране ♥');
+      showToast('Додано в обране');
     }
     saveFavorites();
     renderFavButtons();
@@ -412,7 +411,7 @@ function changeQty(id, delta) {
       : productIcon(p.category, p.tint)
   }
 </div>
-          <div>
+          <div class="cart-item__info">
             <div class="cart-item__title">${p.name}</div>
             <div class="cart-item__price">${p.price} ₴</div>
           </div>
@@ -520,7 +519,7 @@ document.addEventListener('keydown', e => {
       : productIcon(p.category, p.tint)
   }
 </div>
-          <div>
+          <div class="cart-item__info">
             <div class="cart-item__title">${p.name}</div>
             <div class="cart-item__price">${p.price} ₴ × ${qty} = ${lineTotal} ₴</div>
           </div>
@@ -911,16 +910,48 @@ loadProducts().then(() => {
 const topbar = document.querySelector(".topbar");
 const navbar = document.querySelector(".navbar");
 
+const TOPBAR_BREAKPOINT = 900;
+let lastScrollY = window.scrollY;
+let ticking = false;
+
+function updateTopbar() {
+  // Below the breakpoint the topbar is hidden permanently via CSS —
+  // don't fight it with scroll-based classes.
+  if (window.innerWidth <= TOPBAR_BREAKPOINT) {
+    ticking = false;
+    return;
+  }
+
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY <= 0) {
+    // Completely at the top — always show the topbar
+    topbar.classList.remove("hide");
+  } else if (currentScrollY > lastScrollY) {
+    // Scrolling down — hide topbar
+    topbar.classList.add("hide");
+  } else if (currentScrollY < lastScrollY) {
+    // Scrolling up — show topbar again
+    topbar.classList.remove("hide");
+  }
+
+  lastScrollY = currentScrollY;
+  ticking = false;
+}
+
 window.addEventListener("scroll", () => {
+  if (!ticking) {
+    window.requestAnimationFrame(updateTopbar);
+    ticking = true;
+  }
+});
 
-    if (window.scrollY > 50) {
-        topbar.classList.add("hide");
-        navbar.classList.add("move-up");
-    } else {
-        topbar.classList.remove("hide");
-        navbar.classList.remove("move-up");
-    }
-
+window.addEventListener("resize", () => {
+  if (window.innerWidth > TOPBAR_BREAKPOINT) {
+    // Back on desktop — let the topbar reflect the current scroll position again
+    lastScrollY = window.scrollY;
+    if (window.scrollY <= 0) topbar.classList.remove("hide");
+  }
 });
 /* =========================================================
    Slow Smooth Scroll
