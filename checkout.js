@@ -1,7 +1,12 @@
 const SUPABASE_URL = "https://misjubvcloitgtyyximr.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tjERGfE2aVnK-LWT_GxbWQ_qUgXq9-o";
 
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let db = null;
+try {
+    db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch (e) {
+    console.error("Supabase не завантажився:", e);
+}
 
 const cart = JSON.parse(localStorage.getItem("chystodim_cart")) || {};
 
@@ -89,9 +94,12 @@ async function sendOrder() {
     "customerFather",
     "customerPhone",
     "deliveryMethod",
-    "branchInput",
     "customerCity"
 ];
+
+if (delivery !== "Самовивіз") {
+    requiredFields.push("branchInput");
+}
 
 let valid = true;
 
@@ -272,15 +280,40 @@ const savedTheme = localStorage.getItem("chystodim_theme");
 if (savedTheme) {
     document.documentElement.setAttribute("data-theme", savedTheme);
 }
+const customerComment = document.getElementById("customerComment");
+
+if (customerComment) {
+
+    const autoGrowComment = () => {
+        customerComment.style.transition = "none";
+        customerComment.style.height = "54px";
+        void customerComment.offsetHeight; // force reflow
+        customerComment.style.height = customerComment.scrollHeight + "px";
+        void customerComment.offsetHeight;
+        customerComment.style.transition = "";
+    };
+
+    customerComment.addEventListener("input", autoGrowComment);
+    autoGrowComment();
+}
 const deliveryMethod = document.getElementById("deliveryMethod");
 const branchInput = document.getElementById("branchInput");
 
-deliveryMethod.addEventListener("change", function () {
+if (deliveryMethod && branchInput) {
 
-    if (this.value === "Самовивіз") {
-        branchInput.style.display = "none";
-    } else {
-        branchInput.style.display = "block";
-    }
+    const branchField = branchInput.closest(".form-field");
 
-});
+    deliveryMethod.addEventListener("change", function () {
+
+        if (this.value === "Самовивіз") {
+
+            branchField.style.display = "none";
+            branchInput.value = "";
+
+        } else {
+
+            branchField.style.display = "";
+        }
+
+    });
+}
