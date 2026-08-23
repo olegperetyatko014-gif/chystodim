@@ -37,12 +37,6 @@
 </button>
 
 
-<button onclick="openTab('texts', this)">
-<i class="fa-solid fa-file-lines"></i>
-Тексти сайту
-</button>
-
-
 <button onclick="openTab('orders', this)">
 <i class="fa-solid fa-cart-shopping"></i>
 Замовлення
@@ -63,6 +57,25 @@
 
 
 </aside>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav__item active-menu" data-tab="catalog" onclick="openTab('catalog', this)">
+        <span class="mobile-nav__bubble"><i class="fa-solid fa-dolly"></i></span>
+    </button>
+    <button class="mobile-nav__item" data-tab="add" onclick="openTab('add', this)">
+        <span class="mobile-nav__bubble"><i class="fa-solid fa-circle-plus"></i></span>
+    </button>
+    <button class="mobile-nav__item" data-tab="orders" onclick="openTab('orders', this)">
+        <span class="mobile-nav__bubble"><i class="fa-solid fa-cart-shopping"></i></span>
+    </button>
+    <button class="mobile-nav__item" data-tab="settings" onclick="openTab('settings', this)">
+        <span class="mobile-nav__bubble"><i class="fa-solid fa-gear"></i></span>
+    </button>
+    <button class="mobile-nav__item" onclick="logout()">
+        <span class="mobile-nav__bubble"><i class="fa-solid fa-right-from-bracket"></i></span>
+    </button>
+</nav>
 
 
 
@@ -95,6 +108,7 @@
 
 
 
+
 <!-- ДОДАТИ ТОВАР -->
 
 <section id="add" class="tab-content" style="display:none;">
@@ -107,25 +121,69 @@
 <div class="add-form-left">
 
 
-<input id="productName" placeholder="Назва товару">
+<div class="field">
+    <label for="productName">Назва товару</label>
+    <input id="productName" placeholder="Назва товару">
+</div>
 
+<div class="field">
+    <label for="productPrice">Ціна, ₴</label>
+    <input id="productPrice" placeholder="Ціна">
+</div>
 
-<input id="productPrice" placeholder="Ціна">
+<div class="field">
+    <label for="productCategory">Категорія</label>
+    <select id="productCategory">
+        <option value="">Оберіть категорію</option>
+    </select>
+</div>
 
+<div class="field">
+    <label for="productSubcategory">Підкатегорія</label>
+    <select id="productSubcategory">
+        <option value="">Оберіть підкатегорію</option>
+    </select>
+</div>
 
-<input id="productCategory" placeholder="Категорія">
+<div class="field">
+    <label for="productImage">Посилання на картинку</label>
+    <input id="productImage" placeholder="Посилання на картинку (або завантаж файл нижче)">
+</div>
 
+<div class="field">
+    <label>Або перетягни фото сюди</label>
+    <div class="dropzone" id="productDropzone">
+        <input type="file" id="productImageFile" accept="image/*" hidden>
+        <img class="dropzone__preview" id="productDropzonePreview" src="" alt="">
+        <div class="dropzone__inner" id="productDropzoneInner">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Перетягни фото сюди<br>або натисни, щоб обрати файл</span>
+        </div>
+        <div class="dropzone__progress" id="productDropzoneProgress" style="display:none;">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span id="productDropzoneProgressText">Завантажуємо...</span>
+        </div>
+    </div>
+    <button type="button" class="remove-bg-btn" id="productRemoveBgBtn" style="display:none;">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        Вирізати фон
+    </button>
+</div>
 
-<input id="productImage" placeholder="Посилання на картинку">
+<div class="field">
+    <label for="productVol">Об'єм / вага</label>
+    <input id="productVol" placeholder="Об'єм / вага">
+</div>
 
+<div class="field">
+    <label for="productBadge">Бейдж (наприклад "Хіт")</label>
+    <input id="productBadge" placeholder="Бейдж">
+</div>
 
-<input id="productVol" placeholder="Об'єм / вага">
-
-
-<input id="productBadge" placeholder="Бейдж">
-
-
-<input id="productStock" placeholder="Кількість">
+<div class="field">
+    <label for="productStock">Кількість на складі</label>
+    <input id="productStock" placeholder="Кількість">
+</div>
 
 
 
@@ -138,32 +196,90 @@
 
 
 
-<div class="big-image-preview">
+<div class="preview-wrap">
 
-<img id="imagePreview" src="" alt="">
+<div class="preview-label">Попередній перегляд картки</div>
 
+<div class="preview-switch">
+    <span class="preview-switch__thumb" id="previewSwitchThumb"></span>
+    <button type="button" class="preview-switch__btn active" data-view="admin">Вигляд адміна</button>
+    <button type="button" class="preview-switch__btn" data-view="site">Вигляд сайту</button>
+</div>
+
+<div class="preview-card-stack">
+
+<!-- КАРТКА АДМІНА (з кількістю, БЕЗ сердечка) -->
+<article class="product-card preview-card is-active" id="livePreviewCardAdmin">
+
+    <div class="product-card__media">
+        <img id="imagePreviewAdmin" src="" alt="" style="display:none;">
+        <span id="previewNoImageAdmin" class="preview-placeholder">
+            <i class="fa-solid fa-image"></i>
+        </span>
+        <span class="product-card__badge" id="previewBadgeAdmin" style="display:none;"></span>
+    </div>
+
+    <div class="product-card__body">
+
+        <span class="product-card__cat" id="previewCategory">Категорія</span>
+
+        <h3 class="product-card__title" id="previewName">Назва товару</h3>
+
+        <span class="product-card__vol" id="previewVol">Об'єм / вага</span>
+
+        <span class="product-card__stock" id="previewStock">В наявності: 0</span>
+
+        <div class="product-card__footer">
+            <span class="product-card__price" id="previewPrice">0 ₴</span>
+            <div class="admin-actions">
+                <button class="edit-btn">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</article>
+
+<!-- КАРТКА САЙТУ (з сердечком, БЕЗ кількості) -->
+<article class="product-card preview-card" id="livePreviewCardSite">
+
+    <div class="product-card__media">
+        <span class="product-card__badge" id="previewBadgeSite" style="display:none;"></span>
+        <!-- СЕРДЕЧКО -->
+        <button class="fav-btn" tabindex="-1" aria-label="Додати в обране">
+            <svg viewBox="0 0 24 24" width="17" height="17"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="product-card__shine"></div>
+        <img id="imagePreviewSite" src="" alt="" style="display:none;">
+        <span id="previewNoImageSite" class="preview-placeholder">
+            <i class="fa-solid fa-image"></i>
+        </span>
+    </div>
+
+    <div class="product-card__body">
+
+        <h3 class="product-card__title" id="previewNameSite">Назва товару</h3>
+
+        <span class="product-card__vol" id="previewVolSite">Об'єм/вага: —</span>
+
+        <div class="product-card__footer">
+            <span class="product-card__price" id="previewPriceSite">0 ₴</span>
+            <button class="add-btn" id="previewCartBtn" tabindex="-1">В кошик</button>
+        </div>
+
+    </div>
+
+</article>
 
 </div>
 
-
 </div>
 
-
-</section>
-
-
-
-
-
-
-
-
-<!-- ТЕКСТИ -->
-
-<section id="texts" class="tab-content" style="display:none;">
-
-
-<div id="textsList">
 
 </div>
 
@@ -178,45 +294,58 @@
 
 
 <!-- ЗАМОВЛЕННЯ -->
-
 <section id="orders" class="tab-content" style="display:none;">
 
+    <!-- Фільтри (залишив як у вас) -->
+    <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+        <select id="filterStatus" onchange="filterOrders()" style="padding:8px 14px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);outline:none;cursor:pointer;font-size:13px;">
+            <option value="all">Всі статуси</option>
+            <option value="нове">Нове</option>
+            <option value="в роботі">В роботі</option>
+            <option value="відправлено">Відправлено</option>
+            <option value="доставлено">Доставлено</option>
+            <option value="скасовано">Скасовано</option>
+        </select>
+        <input id="searchOrders" oninput="filterOrders()" placeholder="Пошук по ПІБ або телефону..." style="padding:8px 14px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);outline:none;flex:1;min-width:180px;font-size:13px;">
+        <button onclick="loadOrders()" style="padding:8px 16px;border-radius:999px;border:none;background:var(--primary-100);color:var(--primary);font-weight:600;cursor:pointer;font-size:13px;white-space:nowrap;">
+            <i class="fa-solid fa-rotate"></i> Оновити
+        </button>
+        <button onclick="deleteAllOrders()" style="padding:8px 16px;border-radius:999px;border:none;background:#FDEDEB;color:var(--accent-dark);font-weight:600;cursor:pointer;font-size:13px;white-space:nowrap;">
+            <i class="fa-solid fa-trash"></i> Видалити всі
+        </button>
+    </div>
 
-<h2>
-🛒 Замовлення
-</h2>
-
-
-<p>
-Тут будуть замовлення
-</p>
-
+    <!-- Таблиця замовлень з горизонтальним скролом -->
+    <div style="overflow-x:auto;overflow-y:auto;max-height:calc(100vh - 160px);border-radius:16px;border:1px solid var(--border);">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:1000px;">
+            <thead style="background:var(--bg);position:sticky;top:0;z-index:10;">
+                <tr>
+                    <th style="padding:10px 12px;text-align:center;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;width:40px;">№</th>
+                    <!-- ТУТ ЗАЛИШАЄМО ПІБ -->
+                    <th style="padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;min-width:200px;">ПІБ</th>
+                    <!-- Видалив стовпчик Телефон, бо ПІБ тепер головне -->
+                    <th style="padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;min-width:180px;">Email</th>
+                    <th style="padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;min-width:80px;">Сума</th>
+                    <th style="padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;min-width:140px;">Дата</th>
+                    <th style="padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;min-width:130px;">Доставка</th>
+                    <th style="padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;min-width:200px;">Коментар</th>
+                    <th style="padding:10px 12px;text-align:center;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap;width:50px;">Дії</th>
+                </tr>
+            </thead>
+            <tbody id="ordersList">
+                <!-- Замість спінера буде виводитися таблиця -->
+                <tr>
+                    <td colspan="8" style="padding:40px;text-align:center;color:var(--muted);">
+                        <i class="fa-solid fa-spinner fa-spin" style="font-size:24px;display:block;margin-bottom:10px;"></i>
+                        Завантаження замовлень...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 </section>
 
-
-
-
-
-
-
-
-<!-- НАЛАШТУВАННЯ -->
-
-<section id="settings" class="tab-content" style="display:none;">
-
-
-<h2>
-⚙ Налаштування
-</h2>
-
-
-<p>
-Тут будуть налаштування магазину
-</p>
-
-
-</section>
 
 
 
@@ -227,26 +356,78 @@
 
         <h2>Редагувати товар</h2>
 
-        <input id="editName" placeholder="Назва">
+        <div class="field">
+            <label for="editName">Назва товару</label>
+            <input id="editName" placeholder="Назва">
+        </div>
 
-        <input id="editPrice" placeholder="Ціна">
+        <div class="field">
+            <label for="editPrice">Ціна, ₴</label>
+            <input id="editPrice" placeholder="Ціна">
+        </div>
 
-        <input id="editCategory" placeholder="Категорія">
+        <div class="field">
+            <label for="editCategory">Категорія</label>
+            <select id="editCategory">
+                <option value="">Оберіть категорію</option>
+            </select>
+        </div>
 
-        <input id="editImage" placeholder="Картинка">
+        <div class="field">
+            <label for="editSubcategory">Підкатегорія</label>
+            <select id="editSubcategory">
+                <option value="">Оберіть підкатегорію</option>
+            </select>
+        </div>
 
-        <input id="editVol" placeholder="Об'єм">
+        <div class="field">
+            <label for="editImage">Посилання на картинку</label>
+            <input id="editImage" placeholder="Картинка (або завантаж файл нижче)">
+        </div>
 
-        <input id="editBadge" placeholder="Бейдж">
+        <div class="field">
+            <label>Або перетягни фото сюди</label>
+            <div class="dropzone" id="editDropzone">
+                <input type="file" id="editImageFile" accept="image/*" hidden>
+                <img class="dropzone__preview" id="editDropzonePreview" src="" alt="">
+                <div class="dropzone__inner" id="editDropzoneInner">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Перетягни фото сюди<br>або натисни, щоб обрати файл</span>
+                </div>
+                <div class="dropzone__progress" id="editDropzoneProgress" style="display:none;">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <span id="editDropzoneProgressText">Завантажуємо...</span>
+                </div>
+            </div>
+            <button type="button" class="remove-bg-btn" id="editRemoveBgBtn" style="display:none;">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Вирізати фон
+            </button>
+        </div>
 
-<input id="editStock" placeholder="Кількість">
+        <div class="field">
+            <label for="editVol">Об'єм / вага</label>
+            <input id="editVol" placeholder="Об'єм">
+        </div>
+
+        <div class="field">
+            <label for="editBadge">Бейдж (наприклад "Хіт")</label>
+            <input id="editBadge" placeholder="Бейдж">
+        </div>
+
+        <div class="field">
+            <label for="editStock">Кількість на складі</label>
+            <input id="editStock" placeholder="Кількість">
+        </div>
 
         <button onclick="saveEdit()">
-            💾 Зберегти
+            <i class="fa-solid fa-floppy-disk"></i>
+            Зберегти
         </button>
 
-        <button onclick="closeEdit()">
-            ❌ Закрити
+        <button class="modal-close-btn" onclick="closeEdit()">
+            <i class="fa-solid fa-xmark"></i>
+            Закрити
         </button>
 
     </div>
@@ -266,8 +447,6 @@
 <script src="supabase.js"></script>
 
 <script src="admin.js"></script>
-
-<script src="admin-texts.js"></script>
 
 
 </body>
