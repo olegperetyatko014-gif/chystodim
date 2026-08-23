@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<header class="navbar">
+<header class="navbar navbar--checkout">
     <div class="container navbar__inner">
 
         <a href="index.html" class="logo">
@@ -21,12 +21,20 @@
 
         <div class="checkout-top-buttons">
 
-    <a href="index.html" class="btn btn--ghost">
-        Назад до магазину
+    <a href="index.html" class="btn btn--ghost btn--icon" aria-label="Назад до магазину">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </a>
 
-<a href="#" id="openDeliveryBtn" class="btn btn--ghost">
-    Умови доставки та оплати
+<a href="#" id="openDeliveryBtn" class="btn btn--delivery">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 6H15V16H3V6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15 9H18L21 12V16H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="7" cy="18" r="2" stroke="currentColor" stroke-width="2"/>
+        <circle cx="18" cy="18" r="2" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <span>Умови доставки та оплати</span>
 </a>
 </div>
 
@@ -47,9 +55,9 @@
         <input id="customerName" type="text" placeholder="Ім'я">
         <input id="customerFather" type="text" placeholder="По батькові">
 
-        <input id="customerPhone" type="tel" placeholder="Телефон">
+        <input id="customerPhone" type="tel" placeholder="Телефон +380 (XX) XXX-XX-XX">
 
-        <input id="customerEmail" type="email" placeholder="Email (необов'язково)">
+        <input id="customerEmail" type="email" placeholder="Email@gmail.com (необов'язково)">
 
         <select id="deliveryMethod">
             <option value="">Оберіть спосіб доставки</option>
@@ -61,6 +69,7 @@
         <input
     type="text"
     id="branchInput"
+    class="form-field"
     placeholder="Відділення">
 
         <input id="customerCity" type="text" placeholder="Місто">
